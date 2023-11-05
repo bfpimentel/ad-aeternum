@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose)
 }
 
 kotlin {
@@ -22,11 +22,11 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
-        applicationId = "pro.aeternum.MyApplication"
+        applicationId = "pro.aeternum.AdAeternum"
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
         versionCode = 1
-        versionName = "1.0.0"
+        versionName = "0.0.1"
     }
 
     compileOptions {
