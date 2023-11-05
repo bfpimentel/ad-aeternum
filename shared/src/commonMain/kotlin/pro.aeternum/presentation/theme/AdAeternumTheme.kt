@@ -15,25 +15,25 @@ internal fun AdAeternumTheme(content: @Composable () -> Unit) {
 
 @Composable
 private fun createLiberationFontFamily(): FontFamily = FontFamily(
-    component.platform.font(
+    component.font.getFont(
         name = "liberation_serif",
         res = "liberation_serif_regular",
         weight = FontWeight.Normal,
         style = FontStyle.Normal,
     ),
-    component.platform.font(
+    component.font.getFont(
         name = "liberation_serif",
         res = "liberation_serif_italic",
         weight = FontWeight.Normal,
         style = FontStyle.Italic,
     ),
-    component.platform.font(
+    component.font.getFont(
         name = "liberation_serif",
         res = "liberation_serif_bold",
         weight = FontWeight.Bold,
         style = FontStyle.Normal,
     ),
-    component.platform.font(
+    component.font.getFont(
         name = "liberation_serif",
         res = "liberation_serif_bold_italic",
         weight = FontWeight.Bold,
