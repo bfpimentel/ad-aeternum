@@ -7,42 +7,46 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
 import pro.aeternum.di.component
+import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
+import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
+import pro.aeternum.presentation.state.transientComposableStore
 
 @Composable
-fun LiturgyScreen() {
+internal fun LiturgyScreen() {
     val coroutineScope = rememberCoroutineScope()
-    var response by remember { mutableStateOf("not loaded") }
 
-    LaunchedEffect(true) {
-        coroutineScope.launch {
-            response = try {
-                component.dataModule.liturgyAPI.getLiturgy().day
-            } catch (e: Exception) {
-                e.message ?: "generic error"
-            }
-        }
-    }
-
-    Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        Text(
-            text = "Ad Aeternum",
-            style = MaterialTheme.typography.displayMedium,
-        )
-
-        Text(
-            text = response,
-            style = MaterialTheme.typography.bodyLarge,
+    val store = transientComposableStore {
+        component.presentationModule.provideLiturgyStore(
+            coroutineScope = coroutineScope
         )
     }
+    val currentState by store.state.collectAsState()
+
+    LaunchedEffect(true) { store.dispatch(LiturgyActions.Load) }
+
+    LiturgyScreenContent(state = currentState)
 }
 
+@Composable
+internal fun LiturgyScreenContent(state: LiturgyState) {
+    when {
+        state.isLoading -> Text("Loading...")
+        else -> Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+            Text(
+                text = "Ad Aeternum",
+                style = MaterialTheme.typography.displayMedium,
+            )
 
+            Text(
+                text = state.text,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+}

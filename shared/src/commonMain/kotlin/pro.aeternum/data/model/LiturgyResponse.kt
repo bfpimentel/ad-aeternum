@@ -7,9 +7,8 @@ import kotlinx.serialization.json.JsonNames
 
 @Serializable
 internal data class LiturgyResponse @OptIn(ExperimentalSerializationApi::class) constructor(
-    @JsonNames("dia") val day: String,
-) {
-}
+    @JsonNames("dia") val text: String,
+)
 
 //{
 //    "data": "23/04/2023",
