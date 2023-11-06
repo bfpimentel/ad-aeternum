@@ -19,7 +19,7 @@ import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object LiturgyScreen : AdAeternumDestination.Screen {
+internal data object LiturgyScreen : AdAeternumDestination.NavBarScreen {
 
     override val id: String = "liturgy"
 
@@ -44,11 +44,6 @@ private fun LiturgyScreenContent(state: LiturgyState) {
     when {
         state.isLoading -> Text("Loading...")
         else -> Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            Text(
-                text = "Ad Aeternum",
-                style = MaterialTheme.typography.displayMedium,
-            )
-
             Text(
                 text = state.text,
                 style = MaterialTheme.typography.bodyLarge,
