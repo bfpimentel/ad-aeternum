@@ -59,6 +59,7 @@ kotlin {
         sourceSets {
             all {
                 languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
+                languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
             }
         }
     }

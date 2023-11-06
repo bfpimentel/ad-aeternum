@@ -2,8 +2,12 @@ package pro.aeternum.presentation.screens.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,48 +18,74 @@ import pro.aeternum.presentation.navigation.AdAeternumDestination
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
-import pro.aeternum.presentation.state.Dispatch
 import pro.aeternum.presentation.state.Store
-import pro.aeternum.presentation.state.composableStore
+import pro.aeternum.presentation.state.transientComposableStore
 
 @Composable
 internal fun MainScreen() {
     val coroutineScope = rememberCoroutineScope()
-    val store: Store<MainState, MainActions> = composableStore { restoredState ->
+    val store: Store<MainState, MainActions> = transientComposableStore {
         component.presentationModule.provideMainStore(
             coroutineScope = coroutineScope,
-            restoredState = restoredState,
+            restoredState = null, // todo
         )
     }
     val currentState by store.state.collectAsState()
 
     MainScreenContent(
         currentState = currentState,
-        dispatch = store.dispatch,
+        navigate = { destination -> store.dispatch(MainActions.Navigate(destination = destination)) },
     )
 }
 
 @Composable
 private fun MainScreenContent(
     currentState: MainState,
-    dispatch: Dispatch<MainActions>,
+    navigate: (AdAeternumDestination) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        Button(
-            onClick = {
-                if (currentState.destination is LiturgyScreen) {
-                    dispatch(MainActions.Navigate(PlaceholderScreen))
-                } else {
-                    dispatch(MainActions.Navigate(LiturgyScreen))
-                }
+        TopAppBar(
+            modifier = Modifier.fillMaxWidth(),
+            title = {
+                Text(
+                    text = "Ad Aeternum",
+                    style = MaterialTheme.typography.displayMedium,
+                )
             }
-        ) { Text("Switch Destination") }
+        )
 
         when (currentState.destination) {
             is AdAeternumDestination.Screen -> Column(modifier = Modifier.weight(1f)) {
-                currentState.destination.Content { destination -> dispatch(MainActions.Navigate(destination)) }
+                currentState.destination.Content(navigate = navigate)
             }
             is AdAeternumDestination.Dialog -> Text("TBD.")
+        }
+
+        MainNavBar(
+            currentState = currentState,
+            navigate = navigate
+        )
+    }
+}
+
+@Composable
+private fun MainNavBar(
+    currentState: MainState,
+    navigate: (AdAeternumDestination) -> Unit,
+) {
+    val screens = listOf(
+        LiturgyScreen,
+        PlaceholderScreen,
+    )
+
+    NavigationBar(modifier = Modifier.fillMaxWidth()) {
+        screens.forEach { screen ->
+            NavigationBarItem(
+                modifier = Modifier.weight(1f),
+                selected = currentState.destination == screen,
+                onClick = { navigate(screen) },
+                icon = { Text(screen.id) }
+            )
         }
     }
 }

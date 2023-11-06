@@ -45,11 +45,6 @@ private fun LiturgyScreenContent(state: LiturgyState) {
         state.isLoading -> Text("Loading...")
         else -> Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(
-                text = "Ad Aeternum",
-                style = MaterialTheme.typography.displayMedium,
-            )
-
-            Text(
                 text = state.text,
                 style = MaterialTheme.typography.bodyLarge,
             )
