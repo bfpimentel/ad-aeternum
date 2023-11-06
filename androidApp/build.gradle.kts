@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose)
 }
@@ -10,6 +10,10 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
+
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.ktx)
+                implementation(libs.androidx.activity.compose)
             }
         }
     }

@@ -12,8 +12,6 @@ class MainActivity : AppCompatActivity() {
 
         startDI()
 
-        setContent {
-            MainView()
-        }
+        setContent { MainView() }
     }
 }
