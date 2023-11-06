@@ -12,7 +12,7 @@ internal inline fun <reified State, Action> composableStore(
 ): Store<State, Action> = rememberSaveable(
     saver = Saver(
         save = { store -> store.state.value as Any },
-        restore = { parcelable -> init(parcelable as State) }
+        restore = { restoredState -> init(restoredState as State) }
     ),
     init = {
         init(null).also { store ->
@@ -24,6 +24,6 @@ internal inline fun <reified State, Action> composableStore(
 )
 
 @Composable
-internal inline fun <reified State, Action> transientComposableStore(
-    store: Store<State, Action>,
-): Store<State, Action> = remember { store }
+internal fun <State, Action> transientComposableStore(
+    init: () -> Store<State, Action>,
+): Store<State, Action> = remember { init() }

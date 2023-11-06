@@ -1,7 +1,17 @@
 package pro.aeternum.di
 
-internal interface DomainModule
+import pro.aeternum.domain.usecase.GetLiturgyUseCase
+
+internal interface DomainModule {
+
+    fun provideGetLiturgyUseCase(): GetLiturgyUseCase
+}
 
 internal class DefaultDomainModule(
     private val dataModule: DataModule,
-) : DomainModule
+) : DomainModule {
+
+    override fun provideGetLiturgyUseCase(): GetLiturgyUseCase = GetLiturgyUseCase(
+        liturgyRepository = dataModule.provideLiturgyRepository()
+    )
+}

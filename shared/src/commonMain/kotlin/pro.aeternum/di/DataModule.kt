@@ -6,15 +6,22 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import pro.aeternum.data.api.LiturgyAPI
+import pro.aeternum.data.repository.DefaultLiturgyRepository
+import pro.aeternum.domain.repository.LiturgyRepository
 
 internal interface DataModule {
-    val liturgyAPI: LiturgyAPI
+    fun provideLiturgyRepository(): LiturgyRepository
 }
 
 internal class DefaultDataModule : DataModule {
 
-    override val liturgyAPI: LiturgyAPI
-        get() = LiturgyAPI(client = provideHttpClient(baseURL = "https://liturgia.up.railway.app"))
+    override fun provideLiturgyRepository(): LiturgyRepository = DefaultLiturgyRepository(
+        liturgyAPI = provideLiturgyAPI(),
+    )
+
+    private fun provideLiturgyAPI(): LiturgyAPI = LiturgyAPI(
+        client = provideHttpClient(baseURL = "https://liturgia.up.railway.app")
+    )
 
     private fun provideHttpClient(baseURL: String): HttpClient = HttpClient {
         install(DefaultRequest) { url(baseURL) }
