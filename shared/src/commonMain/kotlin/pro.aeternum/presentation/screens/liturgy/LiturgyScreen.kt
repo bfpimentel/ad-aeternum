@@ -13,15 +13,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
+import pro.aeternum.presentation.navigation.AdAeternumDestinations
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
+import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
 @Composable
-internal fun LiturgyScreen() {
+internal fun LiturgyScreen(navigate: (AdAeternumDestinations) -> Unit) {
     val coroutineScope = rememberCoroutineScope()
-
-    val store = transientComposableStore {
+    val store: Store<LiturgyState, LiturgyActions> = transientComposableStore {
         component.presentationModule.provideLiturgyStore(
             coroutineScope = coroutineScope
         )
