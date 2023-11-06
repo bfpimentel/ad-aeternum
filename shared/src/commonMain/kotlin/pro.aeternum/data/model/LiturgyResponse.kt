@@ -1,13 +1,15 @@
 package pro.aeternum.data.model
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonNames
 
 
 @Serializable
-internal data class LiturgyResponse(
+internal data class LiturgyResponse @OptIn(ExperimentalSerializationApi::class) constructor(
     @JsonNames("dia") val day: String,
-)
+) {
+}
 
 //{
 //    "data": "23/04/2023",
