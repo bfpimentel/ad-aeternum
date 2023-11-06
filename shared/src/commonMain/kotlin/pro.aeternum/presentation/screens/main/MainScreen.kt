@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import pro.aeternum.di.component
+import pro.aeternum.di.strings
 import pro.aeternum.presentation.navigation.AdAeternumDestination
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
@@ -53,7 +54,7 @@ private fun MainScreenContent(
             modifier = Modifier.fillMaxWidth(),
             title = {
                 Text(
-                    text = "Ad Aeternum",
+                    text = strings.main.title,
                     style = MaterialTheme.typography.displayMedium,
                 )
             }
@@ -90,7 +91,7 @@ private fun MainNavBar(
                 modifier = Modifier.weight(1f),
                 selected = currentState.destination == screen,
                 onClick = { navigate(screen) },
-                icon = { Text(screen.id) }
+                icon = { Text(screen.title) }
             )
         }
     }
@@ -98,10 +99,10 @@ private fun MainNavBar(
 
 private data object PlaceholderScreen : AdAeternumDestination.NavBarScreen {
 
-    override val id: String = "placeholder"
+    override val title: String by lazy { strings.third.title }
 
     @Composable
     override fun Content(navigate: (AdAeternumDestination) -> Unit) {
-        Text("Placeholder")
+        Text(strings.third.title)
     }
 }
