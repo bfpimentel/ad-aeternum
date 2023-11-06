@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
 }
@@ -26,13 +26,16 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+
+                implementation(libs.ktor)
             }
         }
         val androidMain by getting {
             dependencies {
-                api(libs.androidx.activity.compose)
-                api(libs.androidx.appcompat)
-                api(libs.androidx.ktx)
+                implementation(libs.androidx.activity.compose)
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.ktx)
+                implementation(libs.ktor.engine.android)
             }
         }
         val iosX64Main by getting
@@ -40,9 +43,14 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependsOn(commonMain)
+
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                implementation(libs.ktor.engine.ios)
+            }
         }
     }
 }
