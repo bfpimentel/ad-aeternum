@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import pro.aeternum.di.component
-import pro.aeternum.presentation.navigation.AdAeternumDestinations
+import pro.aeternum.presentation.navigation.AdAeternumDestination
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
@@ -36,26 +36,36 @@ internal fun MainScreen() {
 }
 
 @Composable
-internal fun MainScreenContent(
+private fun MainScreenContent(
     currentState: MainState,
     dispatch: Dispatch<MainActions>,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         Button(
             onClick = {
-                if (currentState.destination is AdAeternumDestinations.Liturgy) {
-                    dispatch(MainActions.Navigate(AdAeternumDestinations.Placeholder))
+                if (currentState.destination is LiturgyScreen) {
+                    dispatch(MainActions.Navigate(PlaceholderScreen))
                 } else {
-                    dispatch(MainActions.Navigate(AdAeternumDestinations.Liturgy))
+                    dispatch(MainActions.Navigate(LiturgyScreen))
                 }
             }
         ) { Text("Switch Destination") }
 
         when (currentState.destination) {
-            is AdAeternumDestinations.Liturgy -> LiturgyScreen { destination ->
-                dispatch(MainActions.Navigate(destination = destination))
+            is AdAeternumDestination.Screen -> Column(modifier = Modifier.weight(1f)) {
+                currentState.destination.Content { destination -> dispatch(MainActions.Navigate(destination)) }
             }
-            is AdAeternumDestinations.Placeholder -> Text("placeholder")
+            is AdAeternumDestination.Dialog -> Text("TBD.")
         }
+    }
+}
+
+private data object PlaceholderScreen : AdAeternumDestination.Screen {
+
+    override val id: String = "placeholder"
+
+    @Composable
+    override fun Content(navigate: (AdAeternumDestination) -> Unit) {
+        Text("Placeholder")
     }
 }

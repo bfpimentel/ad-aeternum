@@ -1,14 +1,15 @@
 package pro.aeternum.presentation.screens.main.state
 
-import pro.aeternum.presentation.navigation.AdAeternumDestinations
+import pro.aeternum.presentation.navigation.AdAeternumDestination
+import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 
 internal data class MainState(
-    val destination: AdAeternumDestinations,
+    val destination: AdAeternumDestination,
 ) {
 
     companion object {
         val INITIAL = MainState(
-            destination = AdAeternumDestinations.Liturgy,
+            destination = LiturgyScreen,
         )
     }
 }
