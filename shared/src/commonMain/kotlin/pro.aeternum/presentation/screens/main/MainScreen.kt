@@ -43,6 +43,11 @@ private fun MainScreenContent(
     currentState: MainState,
     navigate: (AdAeternumDestination) -> Unit,
 ) {
+    if (currentState.destination is AdAeternumDestination.FullScreen) {
+        Text("Full Screen TBD.")
+        return
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
             modifier = Modifier.fillMaxWidth(),
@@ -55,10 +60,11 @@ private fun MainScreenContent(
         )
 
         when (currentState.destination) {
-            is AdAeternumDestination.Screen -> Column(modifier = Modifier.weight(1f)) {
+            is AdAeternumDestination.NavBarScreen -> Column(modifier = Modifier.weight(1f)) {
                 currentState.destination.Content(navigate = navigate)
             }
-            is AdAeternumDestination.Dialog -> Text("TBD.")
+            is AdAeternumDestination.Dialog -> Text("Dialog TBD.")
+            is AdAeternumDestination.FullScreen -> Unit // shouldn't ever happen
         }
 
         MainNavBar(
@@ -73,7 +79,7 @@ private fun MainNavBar(
     currentState: MainState,
     navigate: (AdAeternumDestination) -> Unit,
 ) {
-    val screens = listOf(
+    val screens: List<AdAeternumDestination.NavBarScreen> = listOf(
         LiturgyScreen,
         PlaceholderScreen,
     )
@@ -90,7 +96,7 @@ private fun MainNavBar(
     }
 }
 
-private data object PlaceholderScreen : AdAeternumDestination.Screen {
+private data object PlaceholderScreen : AdAeternumDestination.NavBarScreen {
 
     override val id: String = "placeholder"
 

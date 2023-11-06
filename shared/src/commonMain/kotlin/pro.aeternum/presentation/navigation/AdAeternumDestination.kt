@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 
 internal sealed interface AdAeternumDestination {
 
-    interface Screen : AdAeternumDestination
+    interface NavBarScreen : AdAeternumDestination
+
+    interface FullScreen : AdAeternumDestination
 
     interface Dialog : AdAeternumDestination
 

@@ -19,7 +19,7 @@ import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object LiturgyScreen : AdAeternumDestination.Screen {
+internal data object LiturgyScreen : AdAeternumDestination.NavBarScreen {
 
     override val id: String = "liturgy"
 
