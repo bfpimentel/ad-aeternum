@@ -20,7 +20,7 @@ internal class DefaultAdAeternumComponent(
 
 fun startDI() {
     val platformModule: PlatformModule = DefaultPlatformModule()
-    val dataModule: DataModule = DefaultDataModule()
+    val dataModule: DataModule = DefaultDataModule(platformModule = platformModule)
     val domainModule: DomainModule = DefaultDomainModule(dataModule = dataModule)
     val presentationModule: PresentationModule = DefaultPresentationModule(
         platformModule = platformModule,

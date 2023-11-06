@@ -1,5 +1,6 @@
 package pro.aeternum.di
 
+import pro.aeternum.platform.FileReader
 import pro.aeternum.platform.FontFactory
 import pro.aeternum.platform.Id
 import pro.aeternum.platform.LocaleGetter
@@ -10,6 +11,7 @@ internal interface PlatformModule {
     val fontFactory: FontFactory
     val threads: Threads
     val localeGetter: LocaleGetter
+    val fileReader: FileReader
 }
 
 internal class DefaultPlatformModule : PlatformModule {
@@ -18,4 +20,5 @@ internal class DefaultPlatformModule : PlatformModule {
     override val fontFactory: FontFactory by lazy { FontFactory() }
     override val threads: Threads by lazy { Threads() }
     override val localeGetter: LocaleGetter by lazy { LocaleGetter() }
+    override val fileReader: FileReader get() = FileReader()
 }
