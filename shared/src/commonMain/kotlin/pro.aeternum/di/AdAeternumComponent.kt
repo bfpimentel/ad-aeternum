@@ -22,7 +22,10 @@ fun startDI() {
     val platformModule: PlatformModule = DefaultPlatformModule()
     val dataModule: DataModule = DefaultDataModule()
     val domainModule: DomainModule = DefaultDomainModule(dataModule = dataModule)
-    val presentationModule: PresentationModule = DefaultPresentationModule(domainModule = domainModule)
+    val presentationModule: PresentationModule = DefaultPresentationModule(
+        platformModule = platformModule,
+        domainModule = domainModule,
+    )
 
 
     component = DefaultAdAeternumComponent(

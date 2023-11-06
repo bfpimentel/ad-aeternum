@@ -13,6 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
+import pro.aeternum.di.strings
 import pro.aeternum.presentation.navigation.AdAeternumDestination
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
@@ -21,7 +22,7 @@ import pro.aeternum.presentation.state.transientComposableStore
 
 internal data object LiturgyScreen : AdAeternumDestination.NavBarScreen {
 
-    override val id: String = "liturgy"
+    override val title: String by lazy { strings.liturgy.title }
 
     @Composable
     override fun Content(navigate: (AdAeternumDestination) -> Unit) {

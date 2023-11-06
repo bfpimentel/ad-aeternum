@@ -10,7 +10,7 @@ internal sealed interface AdAeternumDestination {
 
     interface Dialog : AdAeternumDestination
 
-    val id: String
+    val title: String
 
     @Composable
     fun Content(navigate: (AdAeternumDestination) -> Unit)
