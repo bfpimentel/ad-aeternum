@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import pro.aeternum.data.Client
 import pro.aeternum.di.component
 import pro.aeternum.presentation.theme.AdAeternumTheme
 
@@ -29,7 +28,7 @@ fun AdAeternumApp() {
         LaunchedEffect(true) {
             coroutineScope.launch {
                 response = try {
-                    Client().greeting()
+                    component.dataModule.api.greeting()
                 } catch (e: Exception) {
                     e.message ?: "generic error"
                 }
@@ -49,12 +48,12 @@ fun AdAeternumApp() {
             )
 
             Text(
-                text = component.platform.get().value,
+                text = component.platformModule.name,
                 style = MaterialTheme.typography.bodyLarge,
             )
 
             Text(
-                text = component.platform.get().value,
+                text = component.platformModule.name,
                 style = MaterialTheme.typography.bodyLarge,
                 fontStyle = FontStyle.Italic,
             )

@@ -5,7 +5,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 
-expect class Font() {
+expect class FontFactory() {
+
     @Composable
-    fun getFont(name: String, res: String, weight: FontWeight, style: FontStyle): Font
+    fun createFont(name: String, res: String, weight: FontWeight, style: FontStyle): Font
 }

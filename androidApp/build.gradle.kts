@@ -10,6 +10,10 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
+
+                implementation(libs.androidx.appcompat)
+                implementation(libs.androidx.ktx)
+                implementation(libs.androidx.activity.compose)
             }
         }
     }

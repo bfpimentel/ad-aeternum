@@ -1,6 +1,6 @@
 package pro.aeternum.platform
 
-expect class Platform() {
+expect class Id() {
 
     fun get(): PlatformId
 }

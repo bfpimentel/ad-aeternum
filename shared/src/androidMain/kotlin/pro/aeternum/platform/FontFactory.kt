@@ -7,11 +7,11 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 
-actual class Font actual constructor() {
+actual class FontFactory actual constructor() {
 
     @SuppressLint("DiscouragedApi")
     @Composable
-    actual fun getFont(name: String, res: String, weight: FontWeight, style: FontStyle): Font {
+    actual fun createFont(name: String, res: String, weight: FontWeight, style: FontStyle): Font {
         val context = LocalContext.current
         val id = context.resources.getIdentifier(res, "font", context.packageName)
         return Font(resId = id, weight = weight, style = style)
