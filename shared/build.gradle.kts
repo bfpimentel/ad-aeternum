@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
 }
@@ -27,7 +28,9 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
-                implementation(libs.ktor)
+                implementation(libs.ktor.client)
+                implementation(libs.ktor.client.negotiation)
+                implementation(libs.ktor.client.serialization)
             }
         }
         val androidMain by getting {

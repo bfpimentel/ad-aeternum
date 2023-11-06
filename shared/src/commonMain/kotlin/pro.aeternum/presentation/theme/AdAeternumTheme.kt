@@ -67,18 +67,9 @@ private fun createTypography(): Typography {
         titleLarge = MaterialTheme.typography.titleLarge,
         titleMedium = MaterialTheme.typography.titleMedium,
         titleSmall = MaterialTheme.typography.titleSmall,
-        bodyLarge = MaterialTheme.typography.bodyLarge.copy(
-            fontFamily = liberationFontFamily,
-            fontWeight = FontWeight.Normal,
-        ),
-        bodyMedium = MaterialTheme.typography.bodyMedium.copy(
-            fontFamily = liberationFontFamily,
-            fontWeight = FontWeight.Normal,
-        ),
-        bodySmall = MaterialTheme.typography.bodySmall.copy(
-            fontFamily = liberationFontFamily,
-            fontWeight = FontWeight.Normal,
-        ),
+        bodyLarge = MaterialTheme.typography.bodyLarge,
+        bodyMedium = MaterialTheme.typography.bodyMedium,
+        bodySmall = MaterialTheme.typography.bodySmall,
         labelLarge = MaterialTheme.typography.labelLarge,
         labelMedium = MaterialTheme.typography.labelMedium,
         labelSmall = MaterialTheme.typography.labelSmall,

@@ -2,30 +2,30 @@ package pro.aeternum.di
 
 import kotlin.properties.Delegates
 
-internal var component: Component by Delegates.notNull()
+internal var component: AdAeternumComponent by Delegates.notNull()
 
-internal interface Component {
+internal interface AdAeternumComponent {
     val platformModule: PlatformModule
     val dataModule: DataModule
     val domainModule: DomainModule
     val presentationModule: PresentationModule
 }
 
-internal class DefaultComponent(
+internal class DefaultAdAeternumComponent(
     override val platformModule: PlatformModule,
     override val dataModule: DataModule,
     override val domainModule: DomainModule,
     override val presentationModule: PresentationModule,
-) : Component
+) : AdAeternumComponent
 
-fun initDI() {
+fun startDI() {
     val platformModule: PlatformModule = DefaultPlatformModule()
     val dataModule: DataModule = DefaultDataModule()
     val domainModule: DomainModule = DefaultDomainModule(dataModule = dataModule)
     val presentationModule: PresentationModule = DefaultPresentationModule(domainModule = domainModule)
 
 
-    component = DefaultComponent(
+    component = DefaultAdAeternumComponent(
         platformModule = platformModule,
         dataModule = dataModule,
         domainModule = domainModule,
