@@ -55,6 +55,12 @@ kotlin {
                 implementation(libs.ktor.engine.ios)
             }
         }
+
+        sourceSets {
+            all {
+                languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
+            }
+        }
     }
 }
 
