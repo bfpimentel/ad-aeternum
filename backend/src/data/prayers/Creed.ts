@@ -26,7 +26,7 @@ export class Creed_PT implements Prayer {
             na ressurreição da carne;
             e na vida eterna.`,
             
-            `Amém`,
+            `Amém.`,
         ]
     )
 }
