@@ -1,0 +1,24 @@
+[
+    {
+        "type": "creed",
+        "title": "Credo",
+        "subtitle": "",
+        "language": "pt",
+        "paragraphs": [
+            "Creio em Deus Pai Todo-poderoso,\nCriador do Céu e da Terra\ne em Jesus Cristo, seu único filho, nosso Senhor\nque foi concebido pelo poder do Espírito Santo;\nnasceu da Virgem Maria;\npadeceu sob Pôncio Pilatos,\nfoi crucificado, morto e sepultado;\ndesceu à mansão dos mortos;\nressuscitou ao terceiro dia;\nsubiu aos céus;\nestá sentado à direita de Deus Pai Todo-poderoso,\nde onde há de vir a julgar os vivos e os mortos.",
+            "Creio no Espírito Santo;\nna santa Igreja Católica;\nna comunhão dos Santos;\nna remissão dos pecados;\nna ressurreição da carne;\ne na vida eterna.",
+            "Amém."
+        ]
+    },
+    {
+        "type": "creed",
+        "title": "Creed",
+        "subtitle": "",
+        "language": "en",
+        "paragraphs": [
+            "I believe in God, the Father almighty,\nCreator of heaven and earth.\nI believe in Jesus Christ, God's only Son, our Lord,\nwho was conceived by the Holy Spirit,\nborn of the Virgin Mary,\nsuffered under Pontius Pilate,\nwas crucified, died, and was buried;\nhe descended to the dead.\nOn the third day he rose again;\nhe ascended into heaven,\nhe is seated at the right hand of the Father,\nand he will come again to judge the living and the dead.",
+            "I believe in the Holy Spirit,\nthe holy catholic church,\nthe communion of saints,\nthe forgiveness of sins,\nthe resurrection of the body,\nand the life everlasting.",
+            "Amen."
+        ]
+    }
+]
