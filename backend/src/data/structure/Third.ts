@@ -1,17 +1,15 @@
-import { Prayer } from "@/data/prayers/Prayer"
-
 export interface Third {
     id: string
     title: string
+    subtitle: string
     groups: Group[]
-    prayers: Prayer[]
 }
 
-type Group = {
+export type Group = {
     steps: Step[]
 }
 
-type Step = {
+export type Step = {
     type: string
     count: number
 }
