@@ -1,11 +1,13 @@
 package pro.aeternum.di
 
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.DefaultRequest
+import io.ktor.client.HttpClientConfig
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import pro.aeternum.data.repository.DefaultLiturgyRepository
@@ -34,19 +36,28 @@ internal class DefaultDataModule(
     )
 
     private fun provideThirdsRemoteDataSource(): ThirdsRemoteDataSource = ThirdsRemoteDataSource(
-        client = provideHttpClient(baseURL = Environment.AD_AETERNUM_API_URL)
+        client = provideHttpClient {
+            defaultRequest {
+                url(urlString = Environment.AD_AETERNUM_API_URL)
+            }
+        }
     )
 
     private fun provideLiturgyRemoteSource(): LiturgyRemoteSource = LiturgyRemoteSource(
-        client = provideHttpClient(baseURL = "https://liturgia.up.railway.app")
+        client = provideHttpClient {
+            install(DefaultRequest) {
+                url(urlString = "https://liturgia.up.railway.app")
+            }
+        }
     )
 
-    private fun provideHttpClient(baseURL: String): HttpClient = HttpClient {
-        install(DefaultRequest) { url(baseURL) }
+    private fun provideHttpClient(block: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient {
+        block()
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
                     platformModule.logger.log(message)
+                    println(message)
                 }
             }
             level = LogLevel.ALL
