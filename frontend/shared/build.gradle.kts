@@ -20,7 +20,20 @@ kotlin {
     }
 
     sourceSets {
+        val environmentDebug by creating {
+            sourceSets["environmentDebug"].kotlin.srcDirs("src/environmentDebug/kotlin")
+        }
+        val environmentProd by creating {
+            sourceSets["environmentProd"].kotlin.srcDirs("src/environmentProd/kotlin")
+        }
+
         val commonMain by getting {
+            if (true) {
+                sourceSets["commonMain"].kotlin.srcDirs("src/environmentDebug/kotlin")
+            } else {
+                sourceSets["commonMain"].kotlin.srcDirs("src/environmentProd/kotlin")
+            }
+
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -31,6 +44,7 @@ kotlin {
                 implementation(libs.ktor.client)
                 implementation(libs.ktor.client.negotiation)
                 implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.client.logging)
             }
         }
         val androidMain by getting {
@@ -67,7 +81,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "pro.aeternum.common"
+    namespace = "pro.aeternum"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")
