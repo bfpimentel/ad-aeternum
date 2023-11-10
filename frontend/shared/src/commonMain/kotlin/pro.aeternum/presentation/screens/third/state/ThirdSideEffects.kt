@@ -10,7 +10,9 @@ internal class ThirdSideEffects {
             is ThirdActions.Load -> try {
                 this(
                     ThirdActions.SetThird(
-                        text = component.dataModule.provideThirdsRepository().getThirds().title
+                        text = component.dataModule.provideThirdsRepository().getSingleThird(
+                            id = "joyful_mysteries"
+                        ).title
                     )
                 )
             } catch (exception: Exception) {
