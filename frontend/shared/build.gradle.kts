@@ -20,21 +20,10 @@ kotlin {
     }
 
     sourceSets {
-        val environmentDebug by creating {
-            sourceSets["environmentDebug"].kotlin.srcDirs("src/environmentDebug/kotlin")
-        }
-        val environmentProd by creating {
-            sourceSets["environmentProd"].kotlin.srcDirs("src/environmentProd/kotlin")
-        }
-
         val commonMain by getting {
-            if (true) {
-                sourceSets["commonMain"].kotlin.srcDirs("src/environmentDebug/kotlin")
-            } else {
-                sourceSets["commonMain"].kotlin.srcDirs("src/environmentProd/kotlin")
-            }
-
             dependencies {
+                implementation(project(":environment"))
+
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)

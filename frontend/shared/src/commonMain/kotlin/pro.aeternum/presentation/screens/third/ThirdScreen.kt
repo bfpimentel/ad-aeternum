@@ -18,18 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
-import pro.aeternum.presentation.navigation.AdAeternumDestination
+import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.third.state.ThirdActions
 import pro.aeternum.presentation.screens.third.state.ThirdState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object ThirdScreen : AdAeternumDestination.NavBarScreen {
+internal data object ThirdScreen : Destination.NavBarScreen {
 
     override val title: String by lazy { strings.third.title }
 
     @Composable
-    override fun Content(navigate: (AdAeternumDestination) -> Unit) {
+    override fun Content() {
         val coroutineScope = rememberCoroutineScope()
         val store: Store<ThirdState, ThirdActions> = transientComposableStore {
             component.presentationModule.provideThirdStore(

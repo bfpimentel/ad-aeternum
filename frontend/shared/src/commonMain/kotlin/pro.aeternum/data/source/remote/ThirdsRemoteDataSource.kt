@@ -11,10 +11,10 @@ internal class ThirdsRemoteDataSource(private val client: HttpClient) {
 
     suspend fun getThirdsList(): List<ThirdItemResponse> =
         client.get(
-            urlString = "${Environment.AD_AETERNUM_API_PATH}/third_list"
+            urlString = "${Environment.adAeternumApiPath}/third_list"
         ).body()
 
     suspend fun getSingleThird(id: String): ThirdResponse = client.get(
-        urlString = "${Environment.AD_AETERNUM_API_PATH}/third?id=${id}"
+        urlString = "${Environment.adAeternumApiPath}/third?id=${id}"
     ).body()
 }

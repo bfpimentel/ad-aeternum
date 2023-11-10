@@ -2,12 +2,12 @@ package pro.aeternum.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
-import io.ktor.client.plugins.*
+import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import pro.aeternum.data.repository.DefaultLiturgyRepository
@@ -38,7 +38,7 @@ internal class DefaultDataModule(
     private fun provideThirdsRemoteDataSource(): ThirdsRemoteDataSource = ThirdsRemoteDataSource(
         client = provideHttpClient {
             defaultRequest {
-                url(urlString = Environment.AD_AETERNUM_API_URL)
+                url(urlString = Environment.adAeternumApiURL)
             }
         }
     )

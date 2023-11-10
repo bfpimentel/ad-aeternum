@@ -1,8 +1,10 @@
 package pro.aeternum.di
 
+import kotlin.properties.Delegates
 import kotlinx.coroutines.CoroutineScope
 import pro.aeternum.presentation.i18n.BrazilianPortugueseStrings
 import pro.aeternum.presentation.i18n.I18nStrings
+import pro.aeternum.presentation.navigation.Navigator
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyReducer
 import pro.aeternum.presentation.screens.liturgy.state.LiturgySideEffects
@@ -16,9 +18,15 @@ import pro.aeternum.presentation.screens.third.state.ThirdSideEffects
 import pro.aeternum.presentation.screens.third.state.ThirdState
 import pro.aeternum.presentation.state.Store
 
+internal val strings: I18nStrings by lazy {
+    component.presentationModule.provideStrings()
+}
+
 internal interface PresentationModule {
 
     fun provideStrings(): I18nStrings
+
+    fun registerNavigator(navigator: Navigator)
 
     fun provideMainStore(
         coroutineScope: CoroutineScope,
@@ -35,12 +43,17 @@ internal interface PresentationModule {
 }
 
 internal class DefaultPresentationModule(
-    private val platformModule: PlatformModule,
     private val domainModule: DomainModule,
 ) : PresentationModule {
 
+    private var navigator: Navigator by Delegates.notNull()
+
     override fun provideStrings(): I18nStrings {
         return BrazilianPortugueseStrings()
+    }
+
+    override fun registerNavigator(navigator: Navigator) {
+        this.navigator = navigator
     }
 
     override fun provideMainStore(
@@ -50,7 +63,7 @@ internal class DefaultPresentationModule(
         coroutineScope = coroutineScope,
         initialState = restoredState ?: MainState.INITIAL,
         reducer = MainReducer(),
-        sideEffects = listOf()
+        sideEffects = listOf(),
     )
 
     override fun provideThirdStore(
@@ -60,7 +73,7 @@ internal class DefaultPresentationModule(
         initialState = ThirdState.INITIAL,
         reducer = ThirdReducer(),
         sideEffects = listOf(
-            ThirdSideEffects().get()
+            ThirdSideEffects().get(),
         )
     )
 
@@ -71,11 +84,9 @@ internal class DefaultPresentationModule(
         initialState = LiturgyState.INITIAL,
         reducer = LiturgyReducer(),
         sideEffects = listOf(
-            LiturgySideEffects(getLiturgy = domainModule.provideGetLiturgyUseCase()),
+            LiturgySideEffects(
+                getLiturgy = domainModule.provideGetLiturgyUseCase()
+            ).get(),
         )
     )
-}
-
-internal val strings: I18nStrings by lazy {
-    component.presentationModule.provideStrings()
 }

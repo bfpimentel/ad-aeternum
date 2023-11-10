@@ -18,18 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
-import pro.aeternum.presentation.navigation.AdAeternumDestination
+import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object LiturgyScreen : AdAeternumDestination.NavBarScreen {
+internal data object LiturgyScreen : Destination.NavBarScreen {
 
     override val title: String by lazy { strings.liturgy.title }
 
     @Composable
-    override fun Content(navigate: (AdAeternumDestination) -> Unit) {
+    override fun Content() {
         val coroutineScope = rememberCoroutineScope()
         val store: Store<LiturgyState, LiturgyActions> = transientComposableStore {
             component.presentationModule.provideLiturgyStore(
