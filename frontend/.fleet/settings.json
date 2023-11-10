@@ -1,0 +1,6 @@
+{
+    "backend.maxHeapSizeMb": 2048,
+    "run.destination.stop.already.running": "Always",
+    "autoSave": true,
+    "autoSave.delay": 1000
+}

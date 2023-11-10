@@ -22,6 +22,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(project(":environment"))
+
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
@@ -31,6 +33,7 @@ kotlin {
                 implementation(libs.ktor.client)
                 implementation(libs.ktor.client.negotiation)
                 implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.client.logging)
             }
         }
         val androidMain by getting {
@@ -67,7 +70,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "pro.aeternum.common"
+    namespace = "pro.aeternum"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")

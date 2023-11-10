@@ -4,11 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class ThirdResponse(
+internal data class ThirdItemResponse(
     @SerialName("id") val id: String,
     @SerialName("title") val title: String,
     @SerialName("subtitle") val subtitle: String,
-) {
-
-    // todo
-}
+)

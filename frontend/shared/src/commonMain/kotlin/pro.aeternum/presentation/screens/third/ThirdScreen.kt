@@ -1,4 +1,4 @@
-package pro.aeternum.presentation.screens.liturgy
+package pro.aeternum.presentation.screens.third
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,33 +19,33 @@ import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.navigation.Destination
-import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
-import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
+import pro.aeternum.presentation.screens.third.state.ThirdActions
+import pro.aeternum.presentation.screens.third.state.ThirdState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object LiturgyScreen : Destination.NavBarScreen {
+internal data object ThirdScreen : Destination.NavBarScreen {
 
-    override val title: String by lazy { strings.liturgy.title }
+    override val title: String by lazy { strings.third.title }
 
     @Composable
     override fun Content() {
         val coroutineScope = rememberCoroutineScope()
-        val store: Store<LiturgyState, LiturgyActions> = transientComposableStore {
-            component.presentationModule.provideLiturgyStore(
+        val store: Store<ThirdState, ThirdActions> = transientComposableStore {
+            component.presentationModule.provideThirdStore(
                 coroutineScope = coroutineScope
             )
         }
         val currentState by store.state.collectAsState()
 
-        LaunchedEffect(true) { store.dispatch(LiturgyActions.Load) }
+        LaunchedEffect(true) { store.dispatch(ThirdActions.Load) }
 
-        LiturgyScreenContent(currentState = currentState)
+        ThirdScreenContent(currentState = currentState)
     }
 }
 
 @Composable
-private fun LiturgyScreenContent(currentState: LiturgyState) {
+private fun ThirdScreenContent(currentState: ThirdState) {
     when {
         currentState.isLoading -> Box(
             modifier = Modifier.fillMaxSize(),

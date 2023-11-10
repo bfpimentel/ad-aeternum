@@ -2,6 +2,7 @@ rootProject.name = "ad-aeternum"
 
 include(":androidApp")
 include(":shared")
+include(":environment")
 
 pluginManagement {
     repositories {
