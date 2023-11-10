@@ -5,6 +5,6 @@ import android.util.Log
 actual class PlatformLogger actual constructor() {
 
     actual fun log(text: String) {
-        Log.d("BRUNO", text)
+        Log.d("AD_AETERNUM", text)
     }
 }

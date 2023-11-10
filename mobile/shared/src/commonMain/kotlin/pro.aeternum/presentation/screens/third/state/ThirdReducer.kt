@@ -1,5 +1,6 @@
 package pro.aeternum.presentation.screens.third.state
 
+import pro.aeternum.di.component
 import pro.aeternum.domain.model.Third
 import pro.aeternum.presentation.state.Reducer
 
@@ -26,14 +27,13 @@ internal object ThirdReducer {
                     state.currentGroupIndex + 1
                 }
 
-                val stepIndex: Int? = if (groupIndex == null) {
-                    null
-                } else {
-                    state.groups[groupIndex].let { group ->
-                        val stepIndex = state.currentStepIndex + 1
-                        stepIndex.takeIf { group.prayers.getOrNull(stepIndex) != null }
-                    }
+                val stepIndex: Int? = when {
+                    groupIndex == null -> null
+                    groupIndex != state.currentGroupIndex -> 0
+                    else -> state.currentStepIndex + 1
                 }
+
+                component.platformModule.logger.log("groupIndex: $groupIndex. stepIndex: $stepIndex")
 
                 if (groupIndex != null && stepIndex != null) {
                     state.copy(
@@ -47,8 +47,31 @@ internal object ThirdReducer {
                 }
             }
             is ThirdActions.Previous -> {
-                // todo
-                state
+                val groupIndex: Int? = state.groups.getOrNull(state.currentGroupIndex)?.let { group ->
+                    val prayer = group.prayers.getOrNull(state.currentStepIndex - 1)
+                    state.currentGroupIndex.takeIf { prayer != null }
+                } ?: state.groups.getOrNull(state.currentGroupIndex - 1)?.run {
+                    state.currentGroupIndex - 1
+                }
+
+                val stepIndex: Int? = when {
+                    groupIndex == null -> null
+                    groupIndex != state.currentGroupIndex -> state.groups[groupIndex].prayers.lastIndex
+                    else -> state.currentStepIndex - 1
+                }
+
+                component.platformModule.logger.log("groupIndex: $groupIndex. stepIndex: $stepIndex")
+
+                if (groupIndex != null && stepIndex != null) {
+                    state.copy(
+                        prayer = state.groups[groupIndex].prayers[stepIndex],
+                        currentGroupIndex = groupIndex,
+                        currentStepIndex = stepIndex,
+                    )
+                } else {
+                    // todo: set finished state
+                    state
+                }
             }
             else -> state
         }
