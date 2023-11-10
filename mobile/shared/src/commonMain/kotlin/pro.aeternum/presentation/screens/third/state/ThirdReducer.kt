@@ -14,35 +14,41 @@ internal object ThirdReducer {
                     title = third.title,
                     subtitle = third.subtitle.ifEmpty { null },
                     groups = groups,
-                    currentPrayer = groups.first().prayers.first(),
+                    prayer = groups.first().prayers.first(),
+                    isLoading = false,
                 )
             }
             is ThirdActions.Next -> {
-                val groupIndex: Int? = state.groups.getOrNull(state.currentGroup)?.let { group ->
-                    val prayer = group.prayers.getOrNull(state.currentStep + 1)
-                    state.currentGroup.takeIf { prayer != null }
-                } ?: state.groups.getOrNull(state.currentGroup + 1)?.run {
-                    state.currentGroup + 1
+                val groupIndex: Int? = state.groups.getOrNull(state.currentGroupIndex)?.let { group ->
+                    val prayer = group.prayers.getOrNull(state.currentStepIndex + 1)
+                    state.currentGroupIndex.takeIf { prayer != null }
+                } ?: state.groups.getOrNull(state.currentGroupIndex + 1)?.run {
+                    state.currentGroupIndex + 1
                 }
 
                 val stepIndex: Int? = if (groupIndex == null) {
                     null
                 } else {
                     state.groups[groupIndex].let { group ->
-                        val stepIndex = state.currentStep + 1
+                        val stepIndex = state.currentStepIndex + 1
                         stepIndex.takeIf { group.prayers.getOrNull(stepIndex) != null }
                     }
                 }
 
                 if (groupIndex != null && stepIndex != null) {
                     state.copy(
-                        currentPrayer = state.groups[groupIndex].prayers[stepIndex],
-                        currentGroup = groupIndex,
-                        currentStep = stepIndex,
+                        prayer = state.groups[groupIndex].prayers[stepIndex],
+                        currentGroupIndex = groupIndex,
+                        currentStepIndex = stepIndex,
                     )
                 } else {
+                    // todo: set finished state
                     state
                 }
+            }
+            is ThirdActions.Previous -> {
+                // todo
+                state
             }
             else -> state
         }
@@ -54,7 +60,7 @@ internal object ThirdReducer {
                 val prayer = prayers.first { prayer -> prayer.type == step.type }.let { prayer ->
                     ThirdState.Prayer(
                         title = prayer.title,
-                        subtitle = prayer.subtitle,
+                        subtitle = prayer.subtitle.ifEmpty { null },
                         paragraphs = prayer.paragraphs
                     )
                 }

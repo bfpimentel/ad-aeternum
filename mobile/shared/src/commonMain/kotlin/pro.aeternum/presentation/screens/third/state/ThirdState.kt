@@ -3,11 +3,11 @@ package pro.aeternum.presentation.screens.third.state
 internal data class ThirdState(
     val title: String,
     val subtitle: String?,
-    val groups: List<Group>,
-    val currentPrayer: Prayer,
-    val currentGroup: Int,
-    val currentStep: Int,
+    val prayer: Prayer,
+    val currentGroupIndex: Int,
+    val currentStepIndex: Int,
     val isLoading: Boolean,
+    val groups: List<Group>, // control only
 ) {
 
     data class Group(
@@ -24,11 +24,11 @@ internal data class ThirdState(
         val INITIAL = ThirdState(
             title = "",
             subtitle = null,
-            groups = listOf(),
-            currentPrayer = Prayer(title = "", subtitle = null, paragraphs = listOf()),
-            currentGroup = 0,
-            currentStep = 0,
+            prayer = Prayer(title = "", subtitle = null, paragraphs = listOf()),
+            currentGroupIndex = 0,
+            currentStepIndex = 0,
             isLoading = true,
+            groups = listOf(),
         )
     }
 }

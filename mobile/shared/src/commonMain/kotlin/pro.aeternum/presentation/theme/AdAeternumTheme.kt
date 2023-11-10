@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import pro.aeternum.di.component
 import pro.aeternum.platform.FontFactory
 
@@ -61,12 +62,30 @@ private fun createTypography(): Typography {
             fontFamily = liberationFontFamily,
             fontWeight = FontWeight.Bold,
         ),
-        headlineLarge = MaterialTheme.typography.headlineLarge,
-        headlineMedium = MaterialTheme.typography.headlineMedium,
-        headlineSmall = MaterialTheme.typography.headlineSmall,
-        titleLarge = MaterialTheme.typography.titleLarge,
-        titleMedium = MaterialTheme.typography.titleMedium,
-        titleSmall = MaterialTheme.typography.titleSmall,
+        headlineLarge = MaterialTheme.typography.headlineLarge.copy(
+            fontFamily = liberationFontFamily,
+            fontWeight = FontWeight.Bold,
+        ),
+        headlineMedium = MaterialTheme.typography.headlineMedium.copy(
+            fontFamily = liberationFontFamily,
+            fontWeight = FontWeight.Bold,
+        ),
+        headlineSmall = MaterialTheme.typography.headlineSmall.copy(
+            fontFamily = liberationFontFamily,
+            fontWeight = FontWeight.Bold,
+        ),
+        titleLarge = MaterialTheme.typography.titleLarge.copy(
+            fontFamily = liberationFontFamily,
+            fontStyle = FontStyle.Italic,
+        ),
+        titleMedium = MaterialTheme.typography.titleMedium.copy(
+            fontFamily = liberationFontFamily,
+            fontStyle = FontStyle.Italic,
+        ),
+        titleSmall = MaterialTheme.typography.titleSmall.copy(
+            fontFamily = liberationFontFamily,
+            fontStyle = FontStyle.Italic,
+        ),
         bodyLarge = MaterialTheme.typography.bodyLarge,
         bodyMedium = MaterialTheme.typography.bodyMedium,
         bodySmall = MaterialTheme.typography.bodySmall,
