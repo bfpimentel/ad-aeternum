@@ -7,6 +7,8 @@ internal data class ThirdState(
     val currentGroupIndex: Int,
     val currentStepIndex: Int,
     val isLoading: Boolean,
+    val isNextEnabled: Boolean,
+    val isPreviousEnabled: Boolean,
     val groups: List<Group>, // control only
 ) {
 
@@ -28,6 +30,8 @@ internal data class ThirdState(
             currentGroupIndex = 0,
             currentStepIndex = 0,
             isLoading = true,
+            isNextEnabled = true,
+            isPreviousEnabled = false,
             groups = listOf(),
         )
     }
