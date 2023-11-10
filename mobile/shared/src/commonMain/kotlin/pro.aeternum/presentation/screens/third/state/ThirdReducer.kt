@@ -36,14 +36,18 @@ internal object ThirdReducer {
                 component.platformModule.logger.log("groupIndex: $groupIndex. stepIndex: $stepIndex")
 
                 if (groupIndex != null && stepIndex != null) {
+                    val lastGroupIndex = state.groups.lastIndex
+                    val lastPrayerIndex = state.groups.last().prayers.lastIndex
+
                     state.copy(
                         prayer = state.groups[groupIndex].prayers[stepIndex],
                         currentGroupIndex = groupIndex,
                         currentStepIndex = stepIndex,
+                        isNextEnabled = if (groupIndex == lastGroupIndex) stepIndex != lastPrayerIndex else true,
+                        isPreviousEnabled = true,
                     )
                 } else {
-                    // todo: set finished state
-                    state
+                    state.copy(isNextEnabled = false)
                 }
             }
             is ThirdActions.Previous -> {
@@ -67,10 +71,11 @@ internal object ThirdReducer {
                         prayer = state.groups[groupIndex].prayers[stepIndex],
                         currentGroupIndex = groupIndex,
                         currentStepIndex = stepIndex,
+                        isPreviousEnabled = groupIndex != 0 || stepIndex != 0,
+                        isNextEnabled = true,
                     )
                 } else {
-                    // todo: set finished state
-                    state
+                    state.copy(isPreviousEnabled = false)
                 }
             }
             else -> state

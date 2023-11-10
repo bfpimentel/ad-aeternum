@@ -23,6 +23,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
@@ -149,16 +150,17 @@ private fun PrayerNavigation(
     navigateToPrevious: () -> Unit,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
         FilledIconButton(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(36.dp),
             shape = CircleShape,
+            enabled = currentState.isPreviousEnabled,
             onClick = navigateToPrevious,
         ) {
-            Text("P")
+            Text(modifier = Modifier.rotate(180f), text = "➜")
         }
 
         Column(modifier = Modifier.weight(1f)) {
@@ -172,11 +174,12 @@ private fun PrayerNavigation(
         }
 
         FilledIconButton(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(36.dp),
             shape = CircleShape,
+            enabled = currentState.isNextEnabled,
             onClick = navigateToNext,
         ) {
-            Text("N")
+            Text(text = "➜")
         }
     }
 }
