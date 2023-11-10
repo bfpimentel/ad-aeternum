@@ -8,12 +8,16 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pro.aeternum.di.component
+import pro.aeternum.platform.Threads
 
 internal class Store<State, Action>(
     coroutineScope: CoroutineScope,
     initialState: State,
     reducer: Reducer<State, Action>,
     sideEffects: List<SideEffect<State, Action>> = emptyList(),
+    threads: Threads = component.platformModule.threads,
 ) {
 
     private val dispatcher: Channel<Action> = Channel(Channel.UNLIMITED)
@@ -25,10 +29,12 @@ internal class Store<State, Action>(
         state = dispatcher
             .receiveAsFlow()
             .scan(initialState) { state, action ->
-                reducer(state, action).also { newState ->
-                    sideEffects.forEach { sideEffect ->
-                        coroutineScope.launch {
-                            sideEffect.invoke(dispatch, newState, action)
+                withContext(threads.main) {
+                    reducer(state, action).also { newState ->
+                        sideEffects.forEach { sideEffect ->
+                            coroutineScope.launch(threads.io) {
+                                sideEffect.invoke(dispatch, newState, action)
+                            }
                         }
                     }
                 }

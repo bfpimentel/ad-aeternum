@@ -3,18 +3,15 @@ package pro.aeternum.presentation.screens.main
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import pro.aeternum.di.component
-import pro.aeternum.di.strings
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
@@ -55,16 +52,6 @@ private fun MainScreenContent(
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBar(
-            modifier = Modifier.fillMaxWidth(),
-            title = {
-                Text(
-                    text = strings.main.title,
-                    style = MaterialTheme.typography.displayMedium,
-                )
-            }
-        )
-
         when (currentState.destination) {
             is Destination.NavBarScreen -> Column(modifier = Modifier.weight(1f)) {
                 currentState.destination.Content()
