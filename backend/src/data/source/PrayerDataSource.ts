@@ -1,11 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import { Prayer } from "@/data/structure/Prayer"
+import { Third } from '@/data/structure/Third'
 
-export class PrayerDataSource {
+class PrayerDataSource {
     private prayers: Prayer[] = []
 
-    getPrayers(): Prayer[] {
+    private getPrayers(): Prayer[] {
         if (this.prayers.length != 0) return this.prayers
 
         const dir = path.resolve('./public', "prayers");
@@ -20,4 +21,21 @@ export class PrayerDataSource {
 
         return this.prayers
     }
+
+    getPrayersForThird(third: Third): Prayer[] {
+        if (this.prayers.length != 0) {
+            this.prayers = this.getPrayers()
+        }
+
+        var prayerTypes: string[] = []
+    
+        third.groups.flatMap(({steps}) => steps).forEach(({type}) => {
+            if (prayerTypes.includes(type)) return
+            prayerTypes = prayerTypes.concat(type)
+        })
+    
+        return prayerTypes.map(prayerType => this.prayers.find((prayer) => prayer.type == prayerType) as Prayer)
+    }
 }
+
+export const prayerDataSource: PrayerDataSource = new PrayerDataSource()
