@@ -1,6 +1,5 @@
 import { Third } from "@/data/structure/Third";
 import { JoyfulMysteriesThird_PT } from "../thirds/JoyfulMysteriesThird";
-import { error } from "console";
 
 class ThirdDataSource {
     private thirds: Third[] = []

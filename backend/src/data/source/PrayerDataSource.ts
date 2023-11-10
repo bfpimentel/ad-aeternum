@@ -23,7 +23,7 @@ class PrayerDataSource {
     }
 
     getPrayersForThird(third: Third): Prayer[] {
-        if (this.prayers.length != 0) {
+        if (this.prayers.length == 0) {
             this.prayers = this.getPrayers()
         }
 
@@ -38,4 +38,4 @@ class PrayerDataSource {
     }
 }
 
-export const prayerDataSource: PrayerDataSource = new PrayerDataSource()
+export const prayerDataSource: PrayerDataSource = new PrayerDataSource() 
