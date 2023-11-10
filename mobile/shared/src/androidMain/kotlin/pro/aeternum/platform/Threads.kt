@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 
 actual class Threads actual constructor() {
 
-    actual val io: CoroutineDispatcher
-        get() = Dispatchers.IO
+    actual val main: CoroutineDispatcher = Dispatchers.Main
+
+    actual val io: CoroutineDispatcher = Dispatchers.IO
 }

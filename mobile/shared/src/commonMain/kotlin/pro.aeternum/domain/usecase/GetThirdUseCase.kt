@@ -8,5 +8,5 @@ internal class GetThirdUseCase(
     private val thirdsRepository: ThirdsRepository,
 ) {
 
-    suspend fun invoke(id: String): Third = thirdsRepository.getSingleThird(id = id).toDomainModel()
+    suspend operator fun invoke(id: String): Third = thirdsRepository.getSingleThird(id = id).toDomainModel()
 }

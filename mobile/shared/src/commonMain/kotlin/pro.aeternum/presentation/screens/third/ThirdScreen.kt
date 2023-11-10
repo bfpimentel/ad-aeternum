@@ -32,9 +32,7 @@ internal data object ThirdScreen : Destination.NavBarScreen {
     override fun Content() {
         val coroutineScope = rememberCoroutineScope()
         val store: Store<ThirdState, ThirdActions> = transientComposableStore {
-            component.presentationModule.provideThirdStore(
-                coroutineScope = coroutineScope
-            )
+            component.presentationModule.provideThirdStore(coroutineScope = coroutineScope)
         }
         val currentState by store.state.collectAsState()
 
@@ -55,7 +53,7 @@ private fun ThirdScreenContent(currentState: ThirdState) {
         }
         else -> Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(
-                text = currentState.text,
+                text = currentState.title,
                 style = MaterialTheme.typography.bodyLarge,
             )
         }

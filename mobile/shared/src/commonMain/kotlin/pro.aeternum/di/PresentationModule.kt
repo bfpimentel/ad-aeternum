@@ -73,7 +73,9 @@ internal class DefaultPresentationModule(
         initialState = ThirdState.INITIAL,
         reducer = ThirdReducer(),
         sideEffects = listOf(
-            ThirdSideEffects().get(),
+            ThirdSideEffects(
+                getThird = domainModule.provideGetThirdUseCase(),
+            ).get(),
         )
     )
 

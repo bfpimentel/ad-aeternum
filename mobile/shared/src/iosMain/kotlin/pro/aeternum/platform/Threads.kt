@@ -2,9 +2,9 @@ package pro.aeternum.platform
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 actual class Threads actual constructor() {
-
-    actual val io: CoroutineDispatcher
-        get() = Dispatchers.Default
+    actual val main: CoroutineDispatcher = Dispatchers.Main
+    actual val io: CoroutineDispatcher = Dispatchers.IO
 }
