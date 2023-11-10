@@ -19,6 +19,7 @@ import pro.aeternum.presentation.navigation.AdAeternumDestination
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
+import pro.aeternum.presentation.screens.third.ThirdScreen
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
@@ -81,8 +82,8 @@ private fun MainNavBar(
     navigate: (AdAeternumDestination) -> Unit,
 ) {
     val screens: List<AdAeternumDestination.NavBarScreen> = listOf(
+        ThirdScreen,
         LiturgyScreen,
-        PlaceholderScreen,
     )
 
     NavigationBar(modifier = Modifier.fillMaxWidth()) {
@@ -94,15 +95,5 @@ private fun MainNavBar(
                 icon = { Text(screen.title) }
             )
         }
-    }
-}
-
-private data object PlaceholderScreen : AdAeternumDestination.NavBarScreen {
-
-    override val title: String by lazy { strings.third.title }
-
-    @Composable
-    override fun Content(navigate: (AdAeternumDestination) -> Unit) {
-        Text(strings.third.title)
     }
 }

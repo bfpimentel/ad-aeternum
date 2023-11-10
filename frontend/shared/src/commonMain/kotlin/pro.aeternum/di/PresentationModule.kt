@@ -2,7 +2,6 @@ package pro.aeternum.di
 
 import kotlinx.coroutines.CoroutineScope
 import pro.aeternum.presentation.i18n.BrazilianPortugueseStrings
-import pro.aeternum.presentation.i18n.EnglishStrings
 import pro.aeternum.presentation.i18n.I18nStrings
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyReducer
@@ -11,15 +10,28 @@ import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainReducer
 import pro.aeternum.presentation.screens.main.state.MainState
+import pro.aeternum.presentation.screens.third.state.ThirdActions
+import pro.aeternum.presentation.screens.third.state.ThirdReducer
+import pro.aeternum.presentation.screens.third.state.ThirdSideEffects
+import pro.aeternum.presentation.screens.third.state.ThirdState
 import pro.aeternum.presentation.state.Store
 
 internal interface PresentationModule {
 
     fun provideStrings(): I18nStrings
 
-    fun provideMainStore(coroutineScope: CoroutineScope, restoredState: MainState?): Store<MainState, MainActions>
+    fun provideMainStore(
+        coroutineScope: CoroutineScope,
+        restoredState: MainState?,
+    ): Store<MainState, MainActions>
 
-    fun provideLiturgyStore(coroutineScope: CoroutineScope): Store<LiturgyState, LiturgyActions>
+    fun provideThirdStore(
+        coroutineScope: CoroutineScope,
+    ): Store<ThirdState, ThirdActions>
+
+    fun provideLiturgyStore(
+        coroutineScope: CoroutineScope,
+    ): Store<LiturgyState, LiturgyActions>
 }
 
 internal class DefaultPresentationModule(
@@ -28,11 +40,7 @@ internal class DefaultPresentationModule(
 ) : PresentationModule {
 
     override fun provideStrings(): I18nStrings {
-        return if (platformModule.localeGetter.getLanguage().contains("pt")) {
-            BrazilianPortugueseStrings()
-        } else {
-            EnglishStrings()
-        }
+        return BrazilianPortugueseStrings()
     }
 
     override fun provideMainStore(
@@ -45,13 +53,26 @@ internal class DefaultPresentationModule(
         sideEffects = listOf()
     )
 
+    override fun provideThirdStore(
+        coroutineScope: CoroutineScope,
+    ): Store<ThirdState, ThirdActions> = Store(
+        coroutineScope = coroutineScope,
+        initialState = ThirdState.INITIAL,
+        reducer = ThirdReducer(),
+        sideEffects = listOf(
+            ThirdSideEffects().get()
+        )
+    )
+
     override fun provideLiturgyStore(
         coroutineScope: CoroutineScope,
     ): Store<LiturgyState, LiturgyActions> = Store(
         coroutineScope = coroutineScope,
         initialState = LiturgyState.INITIAL,
         reducer = LiturgyReducer(),
-        sideEffects = listOf(LiturgySideEffects(getLiturgy = domainModule.provideGetLiturgyUseCase()))
+        sideEffects = listOf(
+            LiturgySideEffects(getLiturgy = domainModule.provideGetLiturgyUseCase()),
+        )
     )
 }
 
