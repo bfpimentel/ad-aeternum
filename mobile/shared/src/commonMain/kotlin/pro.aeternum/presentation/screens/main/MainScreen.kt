@@ -16,7 +16,7 @@ import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
-import pro.aeternum.presentation.screens.third.ThirdScreen
+import pro.aeternum.presentation.screens.thirdslist.ThirdsListScreen
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
@@ -46,24 +46,27 @@ private fun MainScreenContent(
     currentState: MainState,
     navigate: (Destination) -> Unit,
 ) {
-    if (currentState.destination is Destination.FullScreen) {
-        Text("Full Screen TBD.")
-        return
-    }
-
-    Column(modifier = Modifier.fillMaxSize()) {
-        when (currentState.destination) {
-            is Destination.NavBarScreen -> Column(modifier = Modifier.weight(1f)) {
-                currentState.destination.Content()
-            }
-            is Destination.Dialog -> Text("Dialog TBD.")
-            is Destination.FullScreen -> Unit // shouldn't ever happen
+    when (currentState.destination) {
+        is Destination.FullScreen -> Column(modifier = Modifier.fillMaxSize()) {
+            currentState.destination.Content()
         }
-
-        MainNavBar(
+        is Destination.NavBarScreen -> NavBarScreen(
             currentState = currentState,
             navigate = navigate
         )
+        is Destination.Dialog -> Text("Dialog TBD.")
+    }
+}
+
+@Composable
+private fun NavBarScreen(
+    currentState: MainState,
+    navigate: (Destination) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.weight(1f)) { currentState.destination.Content() }
+
+        MainNavBar(currentState = currentState, navigate = navigate)
     }
 }
 
@@ -73,15 +76,15 @@ private fun MainNavBar(
     navigate: (Destination) -> Unit,
 ) {
     val screens: List<Destination.NavBarScreen> = listOf(
-        ThirdScreen,
-        LiturgyScreen,
+        ThirdsListScreen(),
+        LiturgyScreen(),
     )
 
     NavigationBar(modifier = Modifier.fillMaxWidth()) {
         screens.forEach { screen ->
             NavigationBarItem(
                 modifier = Modifier.weight(1f),
-                selected = currentState.destination == screen,
+                selected = currentState.destination.id == screen.id,
                 onClick = { navigate(screen) },
                 icon = { Text(screen.title) }
             )

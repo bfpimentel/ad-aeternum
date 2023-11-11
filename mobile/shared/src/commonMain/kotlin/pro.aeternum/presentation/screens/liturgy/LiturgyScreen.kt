@@ -22,8 +22,9 @@ import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object LiturgyScreen : Destination.NavBarScreen {
+internal class LiturgyScreen : Destination.NavBarScreen {
 
+    override val id: String = "liturgy"
     override val title: String by lazy { strings.liturgy.title }
 
     @Composable
@@ -58,7 +59,7 @@ private fun LiturgyScreenLoadedContent(currentState: LiturgyState) {
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(
                 text = currentState.text,
-                style = MaterialTheme.typography.displaySmall,
+                style = MaterialTheme.typography.bodyLarge,
             )
         }
     }
