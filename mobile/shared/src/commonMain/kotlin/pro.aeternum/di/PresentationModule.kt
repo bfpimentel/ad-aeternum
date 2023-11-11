@@ -16,6 +16,10 @@ import pro.aeternum.presentation.screens.third.state.ThirdActions
 import pro.aeternum.presentation.screens.third.state.ThirdReducer
 import pro.aeternum.presentation.screens.third.state.ThirdSideEffects
 import pro.aeternum.presentation.screens.third.state.ThirdState
+import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListActions
+import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListReducer
+import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListSideEffects
+import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListState
 import pro.aeternum.presentation.state.Store
 
 internal val strings: I18nStrings by lazy {
@@ -33,8 +37,13 @@ internal interface PresentationModule {
         restoredState: MainState?,
     ): Store<MainState, MainActions>
 
+    fun provideThirdsListStore(
+        coroutineScope: CoroutineScope,
+    ): Store<ThirdsListState, ThirdsListActions>
+
     fun provideThirdStore(
         coroutineScope: CoroutineScope,
+        thirdId: String,
     ): Store<ThirdState, ThirdActions>
 
     fun provideLiturgyStore(
@@ -66,14 +75,30 @@ internal class DefaultPresentationModule(
         sideEffects = listOf(),
     )
 
+    override fun provideThirdsListStore(
+        coroutineScope: CoroutineScope,
+    ): Store<ThirdsListState, ThirdsListActions> = Store(
+        coroutineScope = coroutineScope,
+        initialState = ThirdsListState.INITIAL,
+        reducer = ThirdsListReducer(),
+        sideEffects = listOf(
+            ThirdsListSideEffects(
+                getThirdsList = domainModule.provideGetThirdsListUseCase(),
+                navigator = navigator,
+            ).get()
+        )
+    )
+
     override fun provideThirdStore(
         coroutineScope: CoroutineScope,
+        thirdId: String,
     ): Store<ThirdState, ThirdActions> = Store(
         coroutineScope = coroutineScope,
         initialState = ThirdState.INITIAL,
         reducer = ThirdReducer(),
         sideEffects = listOf(
             ThirdSideEffects(
+                thirdId = thirdId,
                 getThird = domainModule.provideGetThirdUseCase(),
             ).get(),
         )

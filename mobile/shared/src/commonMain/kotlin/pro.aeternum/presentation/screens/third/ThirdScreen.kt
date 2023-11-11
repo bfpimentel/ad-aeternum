@@ -35,15 +35,19 @@ import pro.aeternum.presentation.screens.third.state.ThirdState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal data object ThirdScreen : Destination.NavBarScreen {
+internal class ThirdScreen(private val thirdId: String) : Destination.FullScreen {
 
+    override val id: String = "third"
     override val title: String by lazy { strings.third.title }
 
     @Composable
     override fun Content() {
         val coroutineScope = rememberCoroutineScope()
         val store: Store<ThirdState, ThirdActions> = transientComposableStore {
-            component.presentationModule.provideThirdStore(coroutineScope = coroutineScope)
+            component.presentationModule.provideThirdStore(
+                coroutineScope = coroutineScope,
+                thirdId = thirdId,
+            )
         }
         val currentState by store.state.collectAsState()
 
@@ -150,7 +154,7 @@ private fun PrayerNavigation(
     navigateToPrevious: () -> Unit,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp),
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {

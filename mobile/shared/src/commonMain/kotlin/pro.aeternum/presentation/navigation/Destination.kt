@@ -10,6 +10,7 @@ internal sealed interface Destination {
 
     interface Dialog : Destination
 
+    val id: String
     val title: String
 
     @Composable
