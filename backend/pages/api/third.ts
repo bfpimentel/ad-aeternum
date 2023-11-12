@@ -20,7 +20,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<ThirdR
     const { id } = req.query as Query
 
     try {
-        const third: Third = thirdDataSource.getSingleThird(id as string)
+        const third: Third = thirdDataSource.getSingleThird(id)
 
         const response: ThirdResponse = {
             id: third.id,
