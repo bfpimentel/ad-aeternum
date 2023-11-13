@@ -5,6 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import pro.aeternum.presentation.i18n.BrazilianPortugueseStrings
 import pro.aeternum.presentation.i18n.I18nStrings
 import pro.aeternum.presentation.navigation.Navigator
+import pro.aeternum.presentation.screens.about.state.AboutActions
+import pro.aeternum.presentation.screens.about.state.AboutReducer
+import pro.aeternum.presentation.screens.about.state.AboutState
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyReducer
 import pro.aeternum.presentation.screens.liturgy.state.LiturgySideEffects
@@ -49,6 +52,10 @@ internal interface PresentationModule {
     fun provideLiturgyStore(
         coroutineScope: CoroutineScope,
     ): Store<LiturgyState, LiturgyActions>
+
+    fun provideAboutStore(
+        coroutineScope: CoroutineScope,
+    ): Store<AboutState, AboutActions>
 }
 
 internal class DefaultPresentationModule(
@@ -116,5 +123,14 @@ internal class DefaultPresentationModule(
                 getLiturgy = domainModule.provideGetLiturgyUseCase()
             ).get(),
         )
+    )
+
+    override fun provideAboutStore(
+        coroutineScope: CoroutineScope,
+    ): Store<AboutState, AboutActions> = Store(
+        coroutineScope = coroutineScope,
+        initialState = AboutState.INITIAL,
+        reducer = AboutReducer(),
+        sideEffects = listOf(),
     )
 }

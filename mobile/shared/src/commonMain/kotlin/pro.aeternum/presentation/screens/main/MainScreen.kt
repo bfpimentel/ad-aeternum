@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import pro.aeternum.di.component
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.navigation.Navigator
+import pro.aeternum.presentation.screens.about.AboutScreen
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
@@ -90,6 +91,7 @@ private fun MainNavBar(
     val screens: List<Destination.NavBarScreen> = listOf(
         ThirdListScreen,
         LiturgyScreen,
+        AboutScreen,
     )
 
     NavigationBar(modifier = Modifier.fillMaxWidth()) {

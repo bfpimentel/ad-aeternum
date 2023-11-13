@@ -24,7 +24,9 @@ internal fun AdAeternumAppBar(
     actions: (@Composable RowScope.() -> Unit)? = null,
 ) {
     TopAppBar(
-        modifier = modifier.fillMaxWidth().background(Color.Transparent),
+        modifier = modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         title = { title() },
         navigationIcon = {
             if (onNavigationIconClick != null) {
@@ -54,7 +56,7 @@ internal fun AdAeternumAppBar(
             if (showTitle) {
                 Text(
                     text = strings.main.title,
-                    style = MaterialTheme.typography.displayMedium,
+                    style = MaterialTheme.typography.displaySmall,
                 )
             }
         },
