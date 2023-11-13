@@ -1,14 +1,14 @@
-package pro.aeternum.presentation.screens.thirdslist.state
+package pro.aeternum.presentation.screens.thirdlist.state
 
 import pro.aeternum.presentation.state.Reducer
 
-internal object ThirdsListReducer {
+internal object ThirdListReducer {
 
-    operator fun invoke(): Reducer<ThirdsListState, ThirdsListActions> = { state, action ->
+    operator fun invoke(): Reducer<ThirdListState, ThirdListActions> = { state, action ->
         when (action) {
-            is ThirdsListActions.SetThirdsList -> {
+            is ThirdListActions.SetThirdList -> {
                 val thirds = action.thirds.map { third ->
-                    ThirdsListState.Third(
+                    ThirdListState.Third(
                         id = third.id,
                         title = third.title,
                         subtitle = third.subtitle,

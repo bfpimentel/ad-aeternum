@@ -22,7 +22,7 @@ import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal class LiturgyScreen : Destination.NavBarScreen {
+internal object LiturgyScreen : Destination.NavBarScreen {
 
     override val id: String = "liturgy"
     override val title: String by lazy { strings.liturgy.title }

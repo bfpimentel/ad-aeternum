@@ -13,10 +13,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import pro.aeternum.di.component
 import pro.aeternum.presentation.navigation.Destination
+import pro.aeternum.presentation.navigation.Navigator
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
-import pro.aeternum.presentation.screens.thirdslist.ThirdsListScreen
+import pro.aeternum.presentation.screens.thirdlist.ThirdListScreen
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
@@ -31,13 +32,19 @@ internal fun MainScreen() {
     }
     val currentState by store.state.collectAsState()
 
-    component.presentationModule.registerNavigator { destination ->
-        store.dispatch(MainActions.Navigate(destination = destination))
-    }
+    component.presentationModule.registerNavigator(object : Navigator {
+        override fun navigate(destination: Destination) = store.dispatch(
+            MainActions.Navigate(destination = destination)
+        )
+
+        override fun navigateBack() = store.dispatch(MainActions.NavigateBack)
+    })
 
     MainScreenContent(
         currentState = currentState,
-        navigate = { destination -> store.dispatch(MainActions.Navigate(destination = destination)) },
+        navigate = { destination ->
+            store.dispatch(MainActions.Navigate(destination = destination))
+        },
     )
 }
 
@@ -47,14 +54,19 @@ private fun MainScreenContent(
     navigate: (Destination) -> Unit,
 ) {
     when (currentState.destination) {
-        is Destination.FullScreen -> Column(modifier = Modifier.fillMaxSize()) {
-            currentState.destination.Content()
-        }
+        is Destination.FullScreen -> FullScreen(currentState = currentState)
         is Destination.NavBarScreen -> NavBarScreen(
             currentState = currentState,
-            navigate = navigate
+            navigate = { destination -> navigate(destination) }
         )
         is Destination.Dialog -> Text("Dialog TBD.")
+    }
+}
+
+@Composable
+private fun FullScreen(currentState: MainState) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        currentState.destination.Content()
     }
 }
 
@@ -76,8 +88,8 @@ private fun MainNavBar(
     navigate: (Destination) -> Unit,
 ) {
     val screens: List<Destination.NavBarScreen> = listOf(
-        ThirdsListScreen(),
-        LiturgyScreen(),
+        ThirdListScreen,
+        LiturgyScreen,
     )
 
     NavigationBar(modifier = Modifier.fillMaxWidth()) {

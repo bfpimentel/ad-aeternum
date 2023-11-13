@@ -1,11 +1,13 @@
 package pro.aeternum.presentation.screens.third.state
 
 import pro.aeternum.domain.usecase.GetThirdUseCase
+import pro.aeternum.presentation.navigation.Navigator
 import pro.aeternum.presentation.state.SideEffect
 
 internal class ThirdSideEffects(
     private val thirdId: String,
     private val getThird: GetThirdUseCase,
+    private val navigator: Navigator,
 ) {
 
     fun get(): SideEffect<ThirdState, ThirdActions> = { _, action ->
@@ -17,6 +19,7 @@ internal class ThirdSideEffects(
                 // todo: set error
                 print(exception)
             }
+            is ThirdActions.NavigateBack -> navigator.navigateBack()
             else -> Unit
         }
     }

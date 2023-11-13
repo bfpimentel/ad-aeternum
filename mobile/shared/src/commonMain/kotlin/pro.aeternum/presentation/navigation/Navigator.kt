@@ -1,5 +1,6 @@
 package pro.aeternum.presentation.navigation
 
-internal fun interface Navigator {
+internal interface Navigator {
     fun navigate(destination: Destination)
+    fun navigateBack()
 }

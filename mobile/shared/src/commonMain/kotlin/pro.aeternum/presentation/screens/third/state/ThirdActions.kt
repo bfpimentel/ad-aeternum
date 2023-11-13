@@ -11,4 +11,6 @@ internal sealed interface ThirdActions {
     data object Next : ThirdActions
 
     data object Previous : ThirdActions
+
+    data object NavigateBack : ThirdActions
 }

@@ -5,4 +5,6 @@ import pro.aeternum.presentation.navigation.Destination
 internal sealed interface MainActions {
 
     data class Navigate(val destination: Destination) : MainActions
+
+    data object NavigateBack : MainActions
 }
