@@ -1,6 +1,7 @@
 package pro.aeternum.presentation.screens.about
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
@@ -54,9 +56,9 @@ private fun AboutScreenContent() {
     ) {
         Image(
             modifier = Modifier
-                .fillMaxWidth(0.7f),
+                .fillMaxWidth(0.8f),
             painter = painterResource("drawable/aa_logo_light.xml"),
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.FillHeight,
             contentDescription = null,
         )
 
@@ -68,8 +70,9 @@ private fun AboutScreenContent() {
             strings.about.paragraphs.forEach { paragraph ->
                 Text(
                     modifier = Modifier.padding(top = 8.dp).fillMaxWidth(),
-                    text = paragraph,
+                    textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.bodyLarge,
+                    text = paragraph,
                 )
             }
         }

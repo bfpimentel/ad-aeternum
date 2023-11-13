@@ -1,5 +1,6 @@
 package pro.aeternum.presentation.screens.thirdlist
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -88,13 +89,40 @@ private fun ThirdItem(
     navigateToThird: (String) -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp),
+        color = MaterialTheme.colorScheme.onPrimary,
+        border = BorderStroke(
+            width = 0.5.dp,
+            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+        ),
         onClick = { navigateToThird(item.id) },
     ) {
-        Text(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
-            text = item.title,
-            style = MaterialTheme.typography.bodyLarge
-        )
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                modifier = Modifier.padding(
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = 12.dp,
+                    bottom = if (item.subtitle == null) 12.dp else 0.dp,
+                ),
+                text = item.title,
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            item.subtitle?.let { subtitle ->
+                Text(
+                    modifier = Modifier.padding(
+                        start = 12.dp,
+                        end = 12.dp,
+                        top = 4.dp,
+                        bottom = 12.dp,
+                    ),
+                    text = subtitle,
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
+        }
     }
 }

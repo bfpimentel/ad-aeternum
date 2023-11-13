@@ -1,8 +1,10 @@
 package pro.aeternum.presentation.screens.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -66,7 +68,11 @@ private fun MainScreenContent(
 
 @Composable
 private fun FullScreen(currentState: MainState) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
         currentState.destination.Content()
     }
 }
@@ -76,7 +82,11 @@ private fun NavBarScreen(
     currentState: MainState,
     navigate: (Destination) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
         Column(modifier = Modifier.weight(1f)) { currentState.destination.Content() }
 
         MainNavBar(currentState = currentState, navigate = navigate)
