@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.support.uppercaseFirstChar
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
@@ -10,18 +12,25 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val config by creating {
-            if (System.getenv()["AE_DEPLOYMENT_ENV"] == "debug") {
-                sourceSets["commonMain"].kotlin.srcDirs("src/debug/kotlin")
+        val environmentMain by creating {
+            val environment: Map<String, String> = if (file("local.env").exists()) {
+                mapEnvironment(fileName = "local.env")
             } else {
-                sourceSets["commonMain"].kotlin.srcDirs("src/prod/kotlin")
+                mapOf("AA_DEPLOYMENT_ENV" to "prod")
             }
+
+            if (environment["AA_DEPLOYMENT_ENV"] == null) {
+                throw IllegalStateException("AA_DEPLOYMENT_ENV environment needs to be set. Values: prod | debug.")
+            }
+
+            val environmentPath = "environment${environment["AA_DEPLOYMENT_ENV"]!!.uppercaseFirstChar()}"
+
+            sourceSets["commonMain"].kotlin.srcDirs(
+                "src/commonMain/kotlin",
+                "src/$environmentPath/kotlin",
+            )
         }
 
-        val environmentMain by creating {
-            sourceSets["commonMain"].kotlin.srcDirs("src/commonMain/kotlin")
-            dependsOn(config)
-        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -34,6 +43,16 @@ kotlin {
         }
     }
 }
+
+fun mapEnvironment(fileName: String): Map<String, String> = file(path = fileName)
+    .readLines()
+    .associate { line ->
+        val pos = line.indexOf("=")
+        val key = line.substring(0, pos)
+        val value = line.substring(pos + 1)
+
+        key to value
+    }
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
