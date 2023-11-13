@@ -1,0 +1,57 @@
+[
+    {
+        "type": "luminous_mystery_first",
+        "title": "Batismo de Jesus no rio Jordão",
+        "subtitle": "Primeiro Mistério Luminoso",
+        "language": "pt",
+        "paragraphs": [
+            "Depois que Jesus foi batizado, saiu logo da água. Eis que os céus se abriram e viu descer sobre ele, em forma de pomba, o Espírito de Deus.",
+            "E do céu baixou uma voz: \"Eis meu Filho muito amado em quem ponho minha afeição\".",
+            "ref=(Mt 3,16-17)"
+        ]
+    },
+    {
+        "type": "luminous_mystery_second",
+        "title": "Auto-revelação de Jesus nas Bodas de Caná",
+        "subtitle": "Segundo Mistério Luminoso",
+        "language": "pt",
+        "paragraphs": [
+            "Três dias depois, celebravam-se bodas em Caná da Galiléia, e achava-se ali a mãe de Jesus. Também foram convidados Jesus e os seus discípulos.",
+            "Como viesse a faltar vinho, a mãe de Jesus disse-lhe: \"Eles já não têm vinho\".",
+            "Respondeu-lhe Jesus: \"Mulher, isso compete a nós? Minha hora ainda não chegou\".",
+            "Disse, então, sua mãe aos serventes: \"Fazei o que ele vos disser\".",
+            "ref=(Jo 2, 1-5)"
+        ]
+    },
+    {
+        "type": "luminous_mystery_third",
+        "title": "Anúncio do Reino de Deus",
+        "subtitle": "Terceiro Mistério Luminoso",
+        "language": "pt",
+        "paragraphs": [
+            "Completou-se o tempo e o Reino de Deus está próximo; fazei penitência e crede no Evangelho.",
+            "ref=(Mc 1, 15)"
+        ]
+    },
+    {
+        "type": "luminous_mystery_fourth",
+        "title": "Transfiguração de Jesus",
+        "subtitle": "Quarto Mistério Luminoso",
+        "language": "pt",
+        "paragraphs": [
+            "Seis dias depois, Jesus tomou consigo Pedro, Tiago e João, seu irmão, e conduziu-os à parte a uma alta montanha.",
+            "Lá se transfigurou na presença deles: seu rosto brilhou como o sol, suas vestes tornaram-se resplandecentes de brancura.",
+            "ref=(Mt 17, 1-2)"
+        ]
+    },
+    {
+        "type": "luminous_mystery_fifth",
+        "title": "Instituição da Eucaristia",
+        "subtitle": "Quinto Mistério Luminoso",
+        "language": "pt",
+        "paragraphs": [
+            "Durante a refeição, Jesus tomou o pão, benzeu-o, partiu-o e o deu aos discípulos, dizendo: \"Tomai e comei, isto é meu corpo\".",
+            "ref=(Mt 26, 26)"
+        ]
+    }
+]
