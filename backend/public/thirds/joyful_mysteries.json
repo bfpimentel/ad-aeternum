@@ -1,0 +1,174 @@
+[
+    {
+        "id": "joyful_mysteries",
+        "title": "Mistérios Gozosos",
+        "subtitle": "",
+        "language": "pt",
+        "groups": [
+            {
+                "steps": [
+                    {
+                        "type": "cross",
+                        "count": 1
+                    },
+                    {
+                        "type": "offer",
+                        "count": 1
+                    },
+                    {
+                        "type": "creed",
+                        "count": 1
+                    },
+                    {
+                        "type": "our_father",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_mary",
+                        "count": 3
+                    },
+                    {
+                        "type": "glory",
+                        "count": 1
+                    },
+                    {
+                        "type": "oh_my_jesus",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "steps": [
+                    {
+                        "type": "joyful_mystery_first",
+                        "count": 1
+                    },
+                    {
+                        "type": "our_father",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_mary",
+                        "count": 10
+                    },
+                    {
+                        "type": "glory",
+                        "count": 1
+                    },
+                    {
+                        "type": "oh_my_jesus",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "steps": [
+                    {
+                        "type": "joyful_mystery_second",
+                        "count": 1
+                    },
+                    {
+                        "type": "our_father",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_mary",
+                        "count": 10
+                    },
+                    {
+                        "type": "glory",
+                        "count": 1
+                    },
+                    {
+                        "type": "oh_my_jesus",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "steps": [
+                    {
+                        "type": "joyful_mystery_third",
+                        "count": 1
+                    },
+                    {
+                        "type": "our_father",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_mary",
+                        "count": 10
+                    },
+                    {
+                        "type": "glory",
+                        "count": 1
+                    },
+                    {
+                        "type": "oh_my_jesus",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "steps": [
+                    {
+                        "type": "joyful_mystery_fourth",
+                        "count": 1
+                    },
+                    {
+                        "type": "our_father",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_mary",
+                        "count": 10
+                    },
+                    {
+                        "type": "glory",
+                        "count": 1
+                    },
+                    {
+                        "type": "oh_my_jesus",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "steps": [
+                    {
+                        "type": "joyful_mystery_fifth",
+                        "count": 1
+                    },
+                    {
+                        "type": "our_father",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_mary",
+                        "count": 10
+                    },
+                    {
+                        "type": "glory",
+                        "count": 1
+                    },
+                    {
+                        "type": "oh_my_jesus",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "steps": [
+                    {
+                        "type": "infinite_grace",
+                        "count": 1
+                    },
+                    {
+                        "type": "hail_holy_queen",
+                        "count": 1
+                    }
+                ]
+            }
+        ]
+    }
+]

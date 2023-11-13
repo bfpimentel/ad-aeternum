@@ -19,4 +19,10 @@ export class Constants {
     static PRAYER_JOYFUL_MYSTERY_THIRD: string = "joyful_mystery_third"
     static PRAYER_JOYFUL_MYSTERY_FOURTH: string = "joyful_mystery_fourth"
     static PRAYER_JOYFUL_MYSTERY_FIFTH: string = "joyful_mystery_fifth"
+
+    static PRAYER_GLORIOUS_MYSTERY_FIRST: string = "glorious_mystery_first"
+    static PRAYER_GLORIOUS_MYSTERY_SECOND: string = "glorious_mystery_second"
+    static PRAYER_GLORIOUS_MYSTERY_THIRD: string = "glorious_mystery_third"
+    static PRAYER_GLORIOUS_MYSTERY_FOURTH: string = "glorious_mystery_fourth"
+    static PRAYER_GLORIOUS_MYSTERY_FIFTH: string = "glorious_mystery_fifth"
 }

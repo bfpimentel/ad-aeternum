@@ -1,5 +1,6 @@
+import fs from 'fs'
+import path from 'path'
 import { Third } from "@/data/structure/Third";
-import { JoyfulMysteriesThird_PT } from "../thirds/JoyfulMysteriesThird";
 
 class ThirdDataSource {
     private thirds: Third[] = []
@@ -7,9 +8,15 @@ class ThirdDataSource {
     getThirds(): Third[] {
         if (this.thirds.length != 0) return this.thirds
 
-        this.thirds = [
-            new JoyfulMysteriesThird_PT()
-        ]
+        const dir = path.resolve('./public', "thirds");
+
+        const filenames = fs.readdirSync(dir);
+
+        this.thirds = filenames
+            .map(name => path.join(dir, name))
+            .map((filePath) => fs.readFileSync(filePath, 'utf-8'))
+            .map((json) => JSON.parse(json) as Third[])
+            .flatMap((thirds) => thirds)
 
         return this.thirds
     }
@@ -20,6 +27,8 @@ class ThirdDataSource {
         }
 
         const third = this.thirds.find((third) => third.id == id)
+
+        console.log(JSON.stringify(third))
 
         if (third) {
             return third
