@@ -1,5 +1,6 @@
 package pro.aeternum.presentation.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -13,8 +14,8 @@ import pro.aeternum.platform.FontFactory
 internal fun AdAeternumTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         typography = createTypography(),
-//        colorScheme = if (!isSystemInDarkTheme()) LightColors else DarkColors,
-        colorScheme = LightColors,
+        colorScheme = if (!isSystemInDarkTheme()) LightColors else DarkColors,
+//        colorScheme = LightColors,
         content = content,
     )
 }
