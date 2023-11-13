@@ -28,8 +28,6 @@ class ThirdDataSource {
 
         const third = this.thirds.find((third) => third.id == id)
 
-        console.log(JSON.stringify(third))
-
         if (third) {
             return third
         } else {
