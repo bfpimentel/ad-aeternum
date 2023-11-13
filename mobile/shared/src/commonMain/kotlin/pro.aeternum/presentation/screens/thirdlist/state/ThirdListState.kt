@@ -1,6 +1,6 @@
-package pro.aeternum.presentation.screens.thirdslist.state
+package pro.aeternum.presentation.screens.thirdlist.state
 
-internal data class ThirdsListState(
+internal data class ThirdListState(
     val thirds: List<Third>,
     val isLoading: Boolean,
 ) {
@@ -12,7 +12,7 @@ internal data class ThirdsListState(
     )
 
     companion object {
-        val INITIAL = ThirdsListState(
+        val INITIAL = ThirdListState(
             thirds = listOf(),
             isLoading = true,
         )

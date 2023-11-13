@@ -16,10 +16,10 @@ import pro.aeternum.presentation.screens.third.state.ThirdActions
 import pro.aeternum.presentation.screens.third.state.ThirdReducer
 import pro.aeternum.presentation.screens.third.state.ThirdSideEffects
 import pro.aeternum.presentation.screens.third.state.ThirdState
-import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListActions
-import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListReducer
-import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListSideEffects
-import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListState
+import pro.aeternum.presentation.screens.thirdlist.state.ThirdListActions
+import pro.aeternum.presentation.screens.thirdlist.state.ThirdListReducer
+import pro.aeternum.presentation.screens.thirdlist.state.ThirdListSideEffects
+import pro.aeternum.presentation.screens.thirdlist.state.ThirdListState
 import pro.aeternum.presentation.state.Store
 
 internal val strings: I18nStrings by lazy {
@@ -39,7 +39,7 @@ internal interface PresentationModule {
 
     fun provideThirdsListStore(
         coroutineScope: CoroutineScope,
-    ): Store<ThirdsListState, ThirdsListActions>
+    ): Store<ThirdListState, ThirdListActions>
 
     fun provideThirdStore(
         coroutineScope: CoroutineScope,
@@ -77,12 +77,12 @@ internal class DefaultPresentationModule(
 
     override fun provideThirdsListStore(
         coroutineScope: CoroutineScope,
-    ): Store<ThirdsListState, ThirdsListActions> = Store(
+    ): Store<ThirdListState, ThirdListActions> = Store(
         coroutineScope = coroutineScope,
-        initialState = ThirdsListState.INITIAL,
-        reducer = ThirdsListReducer(),
+        initialState = ThirdListState.INITIAL,
+        reducer = ThirdListReducer(),
         sideEffects = listOf(
-            ThirdsListSideEffects(
+            ThirdListSideEffects(
                 getThirdsList = domainModule.provideGetThirdsListUseCase(),
                 navigator = navigator,
             ).get()
@@ -100,6 +100,7 @@ internal class DefaultPresentationModule(
             ThirdSideEffects(
                 thirdId = thirdId,
                 getThird = domainModule.provideGetThirdUseCase(),
+                navigator = navigator,
             ).get(),
         )
     )

@@ -1,4 +1,4 @@
-package pro.aeternum.presentation.screens.thirdslist
+package pro.aeternum.presentation.screens.thirdlist
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,38 +20,38 @@ import pro.aeternum.di.strings
 import pro.aeternum.presentation.components.AdAeternumAppBar
 import pro.aeternum.presentation.components.AdAeternumProgressIndicator
 import pro.aeternum.presentation.navigation.Destination
-import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListActions
-import pro.aeternum.presentation.screens.thirdslist.state.ThirdsListState
+import pro.aeternum.presentation.screens.thirdlist.state.ThirdListActions
+import pro.aeternum.presentation.screens.thirdlist.state.ThirdListState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal class ThirdsListScreen : Destination.NavBarScreen {
+internal object ThirdListScreen : Destination.NavBarScreen {
 
-    override val id: String = "thirds_list"
+    override val id: String = "third_list"
     override val title: String by lazy { strings.thirdsList.title }
 
     @Composable
     override fun Content() {
         val coroutineScope = rememberCoroutineScope()
-        val store: Store<ThirdsListState, ThirdsListActions> = transientComposableStore {
+        val store: Store<ThirdListState, ThirdListActions> = transientComposableStore {
             component.presentationModule.provideThirdsListStore(
                 coroutineScope = coroutineScope
             )
         }
         val currentState by store.state.collectAsState()
 
-        LaunchedEffect(true) { store.dispatch(ThirdsListActions.Load) }
+        LaunchedEffect(true) { store.dispatch(ThirdListActions.Load) }
 
         ThirdsListScreenContent(
             currentState = currentState,
-            navigateToThird = { id -> store.dispatch(ThirdsListActions.SelectThird(id = id)) }
+            navigateToThird = { id -> store.dispatch(ThirdListActions.SelectThird(id = id)) }
         )
     }
 }
 
 @Composable
 private fun ThirdsListScreenContent(
-    currentState: ThirdsListState,
+    currentState: ThirdListState,
     navigateToThird: (String) -> Unit,
 ) {
     when {
@@ -65,7 +65,7 @@ private fun ThirdsListScreenContent(
 
 @Composable
 private fun ThirdsListLoadedScreenContent(
-    currentState: ThirdsListState,
+    currentState: ThirdListState,
     navigateToThird: (String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -73,17 +73,28 @@ private fun ThirdsListLoadedScreenContent(
 
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(currentState.thirds) { item ->
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navigateToThird(item.id) },
-                ) {
-                    Text(
-                        modifier = Modifier.padding(8.dp),
-                        text = item.title,
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                }
+                ThirdItem(
+                    item = item,
+                    navigateToThird = navigateToThird,
+                )
             }
         }
+    }
+}
+
+@Composable
+private fun ThirdItem(
+    item: ThirdListState.Third,
+    navigateToThird: (String) -> Unit,
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToThird(item.id) },
+    ) {
+        Text(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp),
+            text = item.title,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }

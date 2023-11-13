@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+import kotlin.properties.Delegates
+import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.components.AdAeternumAppBar
@@ -35,10 +38,16 @@ import pro.aeternum.presentation.screens.third.state.ThirdState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal class ThirdScreen(private val thirdId: String) : Destination.FullScreen {
+internal object ThirdScreen : Destination.FullScreen {
 
     override val id: String = "third"
     override val title: String by lazy { strings.third.title }
+
+    private var thirdId: String by Delegates.notNull()
+
+    fun create(thirdId: String): ThirdScreen = ThirdScreen.apply {
+        this.thirdId = thirdId
+    }
 
     @Composable
     override fun Content() {
@@ -57,6 +66,7 @@ internal class ThirdScreen(private val thirdId: String) : Destination.FullScreen
             currentState = currentState,
             navigateToNext = { store.dispatch(ThirdActions.Next) },
             navigateToPrevious = { store.dispatch(ThirdActions.Previous) },
+            navigateBack = { store.dispatch(ThirdActions.NavigateBack) },
         )
     }
 }
@@ -66,6 +76,7 @@ private fun ThirdScreenContent(
     currentState: ThirdState,
     navigateToNext: () -> Unit,
     navigateToPrevious: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
     when {
         currentState.isLoading -> AdAeternumProgressIndicator()
@@ -73,6 +84,7 @@ private fun ThirdScreenContent(
             currentState = currentState,
             navigateToNext = navigateToNext,
             navigateToPrevious = navigateToPrevious,
+            navigateBack = navigateBack,
         )
     }
 }
@@ -82,9 +94,13 @@ private fun ThirdScreenLoadedContent(
     currentState: ThirdState,
     navigateToNext: () -> Unit,
     navigateToPrevious: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        AdAeternumAppBar()
+        AdAeternumAppBar(
+            showTitle = false,
+            onNavigationIconClick = navigateBack,
+        )
 
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             ThirdTitle(title = currentState.title, subtitle = currentState.subtitle)
@@ -164,7 +180,10 @@ private fun PrayerNavigation(
             enabled = currentState.isPreviousEnabled,
             onClick = navigateToPrevious,
         ) {
-            Text(modifier = Modifier.rotate(180f), text = "➜")
+            Icon(
+                painter = painterResource("drawable/arrow_left.xml"),
+                contentDescription = null,
+            )
         }
 
         Column(modifier = Modifier.weight(1f)) {
@@ -183,7 +202,10 @@ private fun PrayerNavigation(
             enabled = currentState.isNextEnabled,
             onClick = navigateToNext,
         ) {
-            Text(text = "➜")
+            Icon(
+                painter = painterResource("drawable/arrow_right.xml"),
+                contentDescription = null,
+            )
         }
     }
 }
