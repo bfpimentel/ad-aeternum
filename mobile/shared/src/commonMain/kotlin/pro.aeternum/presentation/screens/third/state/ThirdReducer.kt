@@ -1,6 +1,5 @@
 package pro.aeternum.presentation.screens.third.state
 
-import pro.aeternum.di.component
 import pro.aeternum.domain.model.Third
 import pro.aeternum.presentation.state.Reducer
 
@@ -33,8 +32,6 @@ internal object ThirdReducer {
                     else -> state.currentStepIndex + 1
                 }
 
-                component.platformModule.logger.log("groupIndex: $groupIndex. stepIndex: $stepIndex")
-
                 if (groupIndex != null && stepIndex != null) {
                     val lastGroupIndex = state.groups.lastIndex
                     val lastPrayerIndex = state.groups.last().prayers.lastIndex
@@ -63,8 +60,6 @@ internal object ThirdReducer {
                     groupIndex != state.currentGroupIndex -> state.groups[groupIndex].prayers.lastIndex
                     else -> state.currentStepIndex - 1
                 }
-
-                component.platformModule.logger.log("groupIndex: $groupIndex. stepIndex: $stepIndex")
 
                 if (groupIndex != null && stepIndex != null) {
                     state.copy(

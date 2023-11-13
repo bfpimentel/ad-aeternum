@@ -11,5 +11,5 @@ internal data class ThirdsListItem(
 internal fun ThirdsListItemResponse.toDomainModel(): ThirdsListItem = ThirdsListItem(
     id = id,
     title = title,
-    subtitle = subtitle,
+    subtitle = subtitle.takeIf(String::isNotEmpty),
 )

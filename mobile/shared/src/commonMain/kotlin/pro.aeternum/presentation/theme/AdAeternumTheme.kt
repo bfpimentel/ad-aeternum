@@ -6,13 +6,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
 import pro.aeternum.di.component
 import pro.aeternum.platform.FontFactory
 
 @Composable
 internal fun AdAeternumTheme(content: @Composable () -> Unit) {
-    MaterialTheme(typography = createTypography(), content = content)
+    MaterialTheme(
+        typography = createTypography(),
+//        colorScheme = if (!isSystemInDarkTheme()) LightColors else DarkColors,
+        colorScheme = LightColors,
+        content = content,
+    )
 }
 
 @Composable
@@ -89,9 +93,18 @@ private fun createTypography(): Typography {
         bodyLarge = MaterialTheme.typography.bodyLarge,
         bodyMedium = MaterialTheme.typography.bodyMedium,
         bodySmall = MaterialTheme.typography.bodySmall,
-        labelLarge = MaterialTheme.typography.labelLarge,
-        labelMedium = MaterialTheme.typography.labelMedium,
-        labelSmall = MaterialTheme.typography.labelSmall,
+        labelLarge = MaterialTheme.typography.labelLarge.copy(
+            fontFamily = liberationFontFamily,
+            fontStyle = FontStyle.Italic,
+        ),
+        labelMedium = MaterialTheme.typography.labelMedium.copy(
+            fontFamily = liberationFontFamily,
+            fontStyle = FontStyle.Italic,
+        ),
+        labelSmall = MaterialTheme.typography.labelSmall.copy(
+            fontFamily = liberationFontFamily,
+            fontStyle = FontStyle.Italic,
+        ),
     )
 }
 

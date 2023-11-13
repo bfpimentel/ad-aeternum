@@ -24,7 +24,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import kotlin.properties.Delegates
 import org.jetbrains.compose.resources.painterResource
@@ -102,7 +101,11 @@ private fun ThirdScreenLoadedContent(
             onNavigationIconClick = navigateBack,
         )
 
-        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
             ThirdTitle(title = currentState.title, subtitle = currentState.subtitle)
 
             Prayer(modifier = Modifier.weight(1f), currentPrayer = currentState.prayer)
@@ -170,7 +173,7 @@ private fun PrayerNavigation(
     navigateToPrevious: () -> Unit,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier.fillMaxWidth().padding(32.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -218,19 +221,19 @@ private fun CountProgressIndicator(count: Int, selectedIndex: Int) {
         horizontalArrangement = Arrangement.Center,
     ) {
         for (index in 0..<count) {
-            Box(modifier = Modifier.padding(4.dp)) {
-                Box(
-                    modifier = Modifier.size(8.dp)
-                        .clip(CircleShape)
-                        .background(
-                            if (index == selectedIndex) {
-                                MaterialTheme.colorScheme.onSurface
-                            } else {
-                                MaterialTheme.colorScheme.inverseOnSurface
-                            }
-                        )
-                )
-            }
+            Box(
+                modifier = Modifier
+                    .size(12.dp)
+                    .padding(2.dp)
+                    .clip(CircleShape)
+                    .background(
+                        if (index == selectedIndex) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.surfaceVariant
+                        }
+                    )
+            )
         }
     }
 }

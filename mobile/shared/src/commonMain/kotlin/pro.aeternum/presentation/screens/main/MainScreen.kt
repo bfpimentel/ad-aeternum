@@ -1,8 +1,10 @@
 package pro.aeternum.presentation.screens.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import pro.aeternum.di.component
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.navigation.Navigator
+import pro.aeternum.presentation.screens.about.AboutScreen
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
@@ -65,7 +68,11 @@ private fun MainScreenContent(
 
 @Composable
 private fun FullScreen(currentState: MainState) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
         currentState.destination.Content()
     }
 }
@@ -75,7 +82,11 @@ private fun NavBarScreen(
     currentState: MainState,
     navigate: (Destination) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
         Column(modifier = Modifier.weight(1f)) { currentState.destination.Content() }
 
         MainNavBar(currentState = currentState, navigate = navigate)
@@ -90,6 +101,7 @@ private fun MainNavBar(
     val screens: List<Destination.NavBarScreen> = listOf(
         ThirdListScreen,
         LiturgyScreen,
+        AboutScreen,
     )
 
     NavigationBar(modifier = Modifier.fillMaxWidth()) {

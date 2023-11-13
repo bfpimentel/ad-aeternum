@@ -1,6 +1,5 @@
 package pro.aeternum.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,9 +8,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.strings
@@ -24,7 +23,10 @@ internal fun AdAeternumAppBar(
     actions: (@Composable RowScope.() -> Unit)? = null,
 ) {
     TopAppBar(
-        modifier = modifier.fillMaxWidth().background(Color.Transparent),
+        modifier = modifier.fillMaxWidth(),
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.onPrimary
+        ),
         title = { title() },
         navigationIcon = {
             if (onNavigationIconClick != null) {
@@ -54,7 +56,7 @@ internal fun AdAeternumAppBar(
             if (showTitle) {
                 Text(
                     text = strings.main.title,
-                    style = MaterialTheme.typography.displayMedium,
+                    style = MaterialTheme.typography.displaySmall,
                 )
             }
         },
