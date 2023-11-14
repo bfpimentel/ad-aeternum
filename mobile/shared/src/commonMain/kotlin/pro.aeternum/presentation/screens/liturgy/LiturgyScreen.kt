@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
@@ -55,6 +56,13 @@ private fun LiturgyScreenContent(currentState: LiturgyState) {
 private fun LiturgyScreenLoadedContent(currentState: LiturgyState) {
     Column(modifier = Modifier.fillMaxWidth()) {
         AdAeternumAppBar()
+
+        Text(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineSmall,
+            text = strings.liturgy.inProgress,
+        )
 
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text(

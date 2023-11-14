@@ -1,11 +1,15 @@
 package pro.aeternum.presentation.screens.thirdlist
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -14,8 +18,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.components.AdAeternumAppBar
@@ -78,6 +85,8 @@ private fun ThirdsListLoadedScreenContent(
                     item = item,
                     navigateToThird = navigateToThird,
                 )
+
+                Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
             }
         }
     }
@@ -93,36 +102,38 @@ private fun ThirdItem(
             .fillMaxWidth()
             .padding(top = 4.dp),
         color = MaterialTheme.colorScheme.onPrimary,
-        border = BorderStroke(
-            width = 0.5.dp,
-            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
-        ),
         onClick = { navigateToThird(item.id) },
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                modifier = Modifier.padding(
-                    start = 12.dp,
-                    end = 12.dp,
-                    top = 12.dp,
-                    bottom = if (item.subtitle == null) 12.dp else 0.dp,
-                ),
-                text = item.title,
-                style = MaterialTheme.typography.bodyLarge
-            )
-
-            item.subtitle?.let { subtitle ->
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp, horizontal = 16.dp)
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    modifier = Modifier.padding(
-                        start = 12.dp,
-                        end = 12.dp,
-                        top = 4.dp,
-                        bottom = 12.dp,
-                    ),
-                    text = subtitle,
-                    style = MaterialTheme.typography.labelLarge
+                    text = item.title,
+                    style = MaterialTheme.typography.bodyLarge
                 )
+
+                item.subtitle?.let { subtitle ->
+                    Text(
+                        modifier = Modifier.padding(top = 4.dp),
+                        text = subtitle,
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                }
             }
+
+            Spacer(modifier = Modifier.padding(6.dp))
+
+            Image(
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.CenterVertically),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                painter = painterResource("drawable/arrow_right.xml"),
+                contentDescription = null,
+            )
         }
     }
 }

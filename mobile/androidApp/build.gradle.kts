@@ -23,7 +23,8 @@ android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "pro.aeternum"
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/androidMain/res")
 
     defaultConfig {
         applicationId = "pro.aeternum.AdAeternum"
