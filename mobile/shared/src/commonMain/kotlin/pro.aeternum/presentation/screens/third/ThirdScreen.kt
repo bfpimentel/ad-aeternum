@@ -106,7 +106,10 @@ private fun ThirdScreenLoadedContent(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            ThirdTitle(title = currentState.title, subtitle = currentState.subtitle)
+            Text(
+                text = currentState.title,
+                style = MaterialTheme.typography.headlineMedium,
+            )
 
             Prayer(modifier = Modifier.weight(1f), currentPrayer = currentState.prayer)
 
@@ -114,24 +117,6 @@ private fun ThirdScreenLoadedContent(
                 currentState = currentState,
                 navigateToNext = navigateToNext,
                 navigateToPrevious = navigateToPrevious,
-            )
-        }
-    }
-}
-
-@Composable
-private fun ThirdTitle(title: String, subtitle: String?) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineMedium,
-        )
-
-        subtitle?.let { subtitle ->
-            Text(
-                modifier = Modifier.padding(top = 16.dp),
-                text = subtitle,
-                style = MaterialTheme.typography.headlineSmall,
             )
         }
     }
