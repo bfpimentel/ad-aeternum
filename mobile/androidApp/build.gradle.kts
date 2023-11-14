@@ -23,23 +23,20 @@ android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
     namespace = "pro.aeternum"
 
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/androidMain/res")
-
     defaultConfig {
         applicationId = "pro.aeternum.AdAeternum"
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
         versionCode = 1
-        versionName = "0.0.1"
+        versionName = "0.1.0"
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 }
