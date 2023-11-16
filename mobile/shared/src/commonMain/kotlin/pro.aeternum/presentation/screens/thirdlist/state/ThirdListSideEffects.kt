@@ -14,6 +14,7 @@ internal class ThirdListSideEffects(
         when (action) {
             is ThirdListActions.Load -> {
                 try {
+                    this(ThirdListActions.SetIsLoading)
                     val thirds = getThirdsList()
                     this(ThirdListActions.SetThirdList(thirds = thirds))
                 } catch (exception: Exception) {

@@ -13,11 +13,11 @@ internal class ThirdSideEffects(
     fun get(): SideEffect<ThirdState, ThirdActions> = { _, action ->
         when (action) {
             is ThirdActions.Load -> try {
+                this(ThirdActions.SetIsLoading)
                 val third = getThird(id = thirdId)
                 this(ThirdActions.SetThird(third = third))
             } catch (exception: Exception) {
-                // todo: set error
-                print(exception)
+                this(ThirdActions.SetHasError)
             }
             is ThirdActions.NavigateBack -> navigator.navigateBack()
             else -> Unit
