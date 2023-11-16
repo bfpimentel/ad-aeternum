@@ -17,7 +17,7 @@ actual class FontFactory actual constructor() {
     actual fun createFont(name: String, res: String, weight: FontWeight, style: FontStyle): Font {
         return cache.getOrPut(res) {
             val byteArray = runBlocking {
-                resource("font/$res.ttf").readBytes()
+                resource("font/$res.otf").readBytes()
             }
             androidx.compose.ui.text.platform.Font(
                 identity = res,
