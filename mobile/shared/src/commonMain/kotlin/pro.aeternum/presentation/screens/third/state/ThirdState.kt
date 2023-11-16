@@ -10,6 +10,7 @@ internal data class ThirdState(
     val isLoading: Boolean,
     val isNextEnabled: Boolean,
     val isPreviousEnabled: Boolean,
+    val hasError: Boolean,
     // control only
     val groups: List<Group>,
 ) {
@@ -29,12 +30,13 @@ internal data class ThirdState(
             title = "",
             subtitle = null,
             prayers = listOf(),
+            currentPrayerIndex = 0,
             currentGroupIndex = 0,
             currentStepIndex = 0,
             isLoading = true,
             isNextEnabled = true,
             isPreviousEnabled = false,
-            currentPrayerIndex = 0,
+            hasError = false,
             groups = listOf(),
         )
     }

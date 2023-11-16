@@ -7,6 +7,7 @@ internal object ThirdReducer {
 
     operator fun invoke(): Reducer<ThirdState, ThirdActions> = { state, action ->
         when (action) {
+            is ThirdActions.SetIsLoading -> state.copy(isLoading = true, hasError = false)
             is ThirdActions.SetThird -> action.third.let { third ->
                 val groups = third.mapGroups()
 
@@ -23,6 +24,7 @@ internal object ThirdReducer {
             } else {
                 state.previousPrayer()
             }
+            is ThirdActions.SetHasError -> state.copy(hasError = true)
             else -> state
         }
     }

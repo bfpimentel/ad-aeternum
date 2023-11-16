@@ -24,10 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +36,7 @@ import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.components.AdAeternumAppBar
+import pro.aeternum.presentation.components.AdAeternumErrorScreen
 import pro.aeternum.presentation.components.AdAeternumProgressIndicator
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.third.state.ThirdActions
@@ -74,6 +72,7 @@ internal object ThirdScreen : Destination.FullScreen {
             currentState = currentState,
             swipe = { index -> store.dispatch(ThirdActions.Swipe(index)) },
             navigateBack = { store.dispatch(ThirdActions.NavigateBack) },
+            retry = { store.dispatch(ThirdActions.Load) }
         )
     }
 }
@@ -83,8 +82,13 @@ private fun ThirdScreenContent(
     currentState: ThirdState,
     swipe: (Int) -> Unit,
     navigateBack: () -> Unit,
+    retry: () -> Unit,
 ) {
     when {
+        currentState.hasError -> AdAeternumErrorScreen(
+            errorMessage = strings.third.errorMessage,
+            retry = retry
+        )
         currentState.isLoading -> AdAeternumProgressIndicator()
         else -> ThirdScreenLoadedContent(
             currentState = currentState,
