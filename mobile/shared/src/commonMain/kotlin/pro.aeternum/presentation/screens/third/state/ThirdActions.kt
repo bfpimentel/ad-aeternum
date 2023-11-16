@@ -8,9 +8,7 @@ internal sealed interface ThirdActions {
 
     data class SetThird(val third: Third) : ThirdActions
 
-    data object Next : ThirdActions
-
-    data object Previous : ThirdActions
+    data class Swipe(val index: Int) : ThirdActions
 
     data object NavigateBack : ThirdActions
 }
