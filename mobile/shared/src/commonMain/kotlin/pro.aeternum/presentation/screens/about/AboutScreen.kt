@@ -60,8 +60,7 @@ private fun AboutScreenContent() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
-            modifier = Modifier
-                .fillMaxWidth(0.8f),
+            modifier = Modifier.fillMaxWidth(0.8f),
             painter = painterResource("drawable/aa_logo_light.xml"),
             contentScale = ContentScale.FillHeight,
             contentDescription = null,

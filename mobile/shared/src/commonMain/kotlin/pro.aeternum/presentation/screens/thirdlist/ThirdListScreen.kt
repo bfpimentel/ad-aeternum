@@ -26,6 +26,7 @@ import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.components.AdAeternumAppBar
+import pro.aeternum.presentation.components.AdAeternumErrorScreen
 import pro.aeternum.presentation.components.AdAeternumProgressIndicator
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.thirdlist.state.ThirdListActions
@@ -52,7 +53,8 @@ internal object ThirdListScreen : Destination.NavBarScreen {
 
         ThirdsListScreenContent(
             currentState = currentState,
-            navigateToThird = { id -> store.dispatch(ThirdListActions.SelectThird(id = id)) }
+            navigateToThird = { id -> store.dispatch(ThirdListActions.SelectThird(id = id)) },
+            retry = { store.dispatch(ThirdListActions.Load) },
         )
     }
 }
@@ -61,8 +63,13 @@ internal object ThirdListScreen : Destination.NavBarScreen {
 private fun ThirdsListScreenContent(
     currentState: ThirdListState,
     navigateToThird: (String) -> Unit,
+    retry: () -> Unit,
 ) {
     when {
+        currentState.hasError -> AdAeternumErrorScreen(
+            errorMessage = strings.thirdsList.errorText,
+            retry = retry
+        )
         currentState.isLoading -> AdAeternumProgressIndicator()
         else -> ThirdsListLoadedScreenContent(
             currentState = currentState,

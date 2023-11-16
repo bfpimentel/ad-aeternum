@@ -2,11 +2,17 @@ package pro.aeternum.presentation.i18n
 
 internal interface I18nStrings {
 
+    val error: Error
+
     val main: Main
     val thirdsList: ThirdsList
     val third: Third
     val liturgy: Liturgy
     val about: About
+
+    interface Error {
+        val tryAgain: String
+    }
 
     interface Main {
         val title: String
@@ -14,6 +20,7 @@ internal interface I18nStrings {
 
     interface ThirdsList {
         val title: String
+        val errorText: String
     }
 
     interface Third {
@@ -40,12 +47,17 @@ internal interface I18nStrings {
 
 internal class BrazilianPortugueseStrings : I18nStrings {
 
+    override val error = object : I18nStrings.Error {
+        override val tryAgain: String = "Tentar Novamente"
+    }
+
     override val main = object : I18nStrings.Main {
         override val title: String = "AD AETERNUM"
     }
 
     override val thirdsList = object : I18nStrings.ThirdsList {
         override val title: String = "Terços"
+        override val errorText: String = "Ocorreu um erro ao buscar a lista de terços."
     }
 
     override val liturgy = object : I18nStrings.Liturgy {

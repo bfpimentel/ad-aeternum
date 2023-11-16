@@ -13,8 +13,12 @@ internal class ThirdListSideEffects(
     fun get(): SideEffect<ThirdListState, ThirdListActions> = { _, action ->
         when (action) {
             is ThirdListActions.Load -> {
-                val thirds = getThirdsList()
-                this(ThirdListActions.SetThirdList(thirds = thirds))
+                try {
+                    val thirds = getThirdsList()
+                    this(ThirdListActions.SetThirdList(thirds = thirds))
+                } catch (exception: Exception) {
+                    this(ThirdListActions.SetHasError)
+                }
             }
             is ThirdListActions.SelectThird -> navigator.navigate(
                 destination = ThirdScreen.create(thirdId = action.id)

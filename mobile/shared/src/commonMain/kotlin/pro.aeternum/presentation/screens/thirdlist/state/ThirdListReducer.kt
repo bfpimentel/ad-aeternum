@@ -6,6 +6,7 @@ internal object ThirdListReducer {
 
     operator fun invoke(): Reducer<ThirdListState, ThirdListActions> = { state, action ->
         when (action) {
+            is ThirdListActions.SetIsLoading -> state.copy(isLoading = true, hasError = false)
             is ThirdListActions.SetThirdList -> {
                 val thirds = action.thirds.map { third ->
                     ThirdListState.Third(
@@ -15,7 +16,14 @@ internal object ThirdListReducer {
                     )
                 }
 
-                state.copy(thirds = thirds, isLoading = false)
+                state.copy(
+                    thirds = thirds,
+                    isLoading = false,
+                    hasError = false,
+                )
+            }
+            is ThirdListActions.SetHasError -> {
+                state.copy(hasError = true)
             }
             else -> state
         }

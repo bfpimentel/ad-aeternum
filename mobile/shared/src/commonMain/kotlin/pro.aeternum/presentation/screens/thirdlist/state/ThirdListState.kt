@@ -3,6 +3,7 @@ package pro.aeternum.presentation.screens.thirdlist.state
 internal data class ThirdListState(
     val thirds: List<Third>,
     val isLoading: Boolean,
+    val hasError: Boolean,
 ) {
 
     data class Third(
@@ -15,6 +16,7 @@ internal data class ThirdListState(
         val INITIAL = ThirdListState(
             thirds = listOf(),
             isLoading = true,
+            hasError = false,
         )
     }
 }
