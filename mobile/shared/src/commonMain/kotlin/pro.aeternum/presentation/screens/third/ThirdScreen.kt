@@ -1,14 +1,18 @@
 package pro.aeternum.presentation.screens.third
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -20,12 +24,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import kotlin.properties.Delegates
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
@@ -63,8 +72,7 @@ internal object ThirdScreen : Destination.FullScreen {
 
         ThirdScreenContent(
             currentState = currentState,
-            navigateToNext = { store.dispatch(ThirdActions.Next) },
-            navigateToPrevious = { store.dispatch(ThirdActions.Previous) },
+            swipe = { index -> store.dispatch(ThirdActions.Swipe(index)) },
             navigateBack = { store.dispatch(ThirdActions.NavigateBack) },
         )
     }
@@ -73,28 +81,33 @@ internal object ThirdScreen : Destination.FullScreen {
 @Composable
 private fun ThirdScreenContent(
     currentState: ThirdState,
-    navigateToNext: () -> Unit,
-    navigateToPrevious: () -> Unit,
+    swipe: (Int) -> Unit,
     navigateBack: () -> Unit,
 ) {
     when {
         currentState.isLoading -> AdAeternumProgressIndicator()
         else -> ThirdScreenLoadedContent(
             currentState = currentState,
-            navigateToNext = navigateToNext,
-            navigateToPrevious = navigateToPrevious,
+            swipe = swipe,
             navigateBack = navigateBack,
         )
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ThirdScreenLoadedContent(
     currentState: ThirdState,
-    navigateToNext: () -> Unit,
-    navigateToPrevious: () -> Unit,
     navigateBack: () -> Unit,
+    swipe: (Int) -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState { currentState.prayers.size }
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { index -> swipe(index) }
+    }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         AdAeternumAppBar(
             showTitle = false,
@@ -111,12 +124,29 @@ private fun ThirdScreenLoadedContent(
                 style = MaterialTheme.typography.headlineMedium,
             )
 
-            Prayer(modifier = Modifier.weight(1f), currentPrayer = currentState.prayer)
+            HorizontalPager(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.Top,
+                state = pagerState,
+            ) { index ->
+                Prayer(
+                    modifier = Modifier.fillMaxSize(),
+                    currentPrayer = currentState.prayers[index]
+                )
+            }
 
             PrayerNavigation(
                 currentState = currentState,
-                navigateToNext = navigateToNext,
-                navigateToPrevious = navigateToPrevious,
+                navigateToNext = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                    }
+                },
+                navigateToPrevious = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                    }
+                },
             )
         }
     }

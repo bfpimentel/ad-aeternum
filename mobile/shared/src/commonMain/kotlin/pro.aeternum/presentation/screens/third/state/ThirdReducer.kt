@@ -14,64 +14,14 @@ internal object ThirdReducer {
                     title = third.title,
                     subtitle = third.subtitle.ifEmpty { null },
                     groups = groups,
-                    prayer = groups.first().prayers.first(),
+                    prayers = groups.flatMap(ThirdState.Group::prayers),
                     isLoading = false,
                 )
             }
-            is ThirdActions.Next -> {
-                val groupIndex: Int? = state.groups.getOrNull(state.currentGroupIndex)?.let { group ->
-                    val prayer = group.prayers.getOrNull(state.currentStepIndex + 1)
-                    state.currentGroupIndex.takeIf { prayer != null }
-                } ?: state.groups.getOrNull(state.currentGroupIndex + 1)?.run {
-                    state.currentGroupIndex + 1
-                }
-
-                val stepIndex: Int? = when {
-                    groupIndex == null -> null
-                    groupIndex != state.currentGroupIndex -> 0
-                    else -> state.currentStepIndex + 1
-                }
-
-                if (groupIndex != null && stepIndex != null) {
-                    val lastGroupIndex = state.groups.lastIndex
-                    val lastPrayerIndex = state.groups.last().prayers.lastIndex
-
-                    state.copy(
-                        prayer = state.groups[groupIndex].prayers[stepIndex],
-                        currentGroupIndex = groupIndex,
-                        currentStepIndex = stepIndex,
-                        isNextEnabled = if (groupIndex == lastGroupIndex) stepIndex != lastPrayerIndex else true,
-                        isPreviousEnabled = true,
-                    )
-                } else {
-                    state.copy(isNextEnabled = false)
-                }
-            }
-            is ThirdActions.Previous -> {
-                val groupIndex: Int? = state.groups.getOrNull(state.currentGroupIndex)?.let { group ->
-                    val prayer = group.prayers.getOrNull(state.currentStepIndex - 1)
-                    state.currentGroupIndex.takeIf { prayer != null }
-                } ?: state.groups.getOrNull(state.currentGroupIndex - 1)?.run {
-                    state.currentGroupIndex - 1
-                }
-
-                val stepIndex: Int? = when {
-                    groupIndex == null -> null
-                    groupIndex != state.currentGroupIndex -> state.groups[groupIndex].prayers.lastIndex
-                    else -> state.currentStepIndex - 1
-                }
-
-                if (groupIndex != null && stepIndex != null) {
-                    state.copy(
-                        prayer = state.groups[groupIndex].prayers[stepIndex],
-                        currentGroupIndex = groupIndex,
-                        currentStepIndex = stepIndex,
-                        isPreviousEnabled = groupIndex != 0 || stepIndex != 0,
-                        isNextEnabled = true,
-                    )
-                } else {
-                    state.copy(isPreviousEnabled = false)
-                }
+            is ThirdActions.Swipe -> if (action.index > state.currentPrayerIndex) {
+                state.nextPrayer()
+            } else {
+                state.previousPrayer()
             }
             else -> state
         }
@@ -90,5 +40,58 @@ internal object ThirdReducer {
                 MutableList(step.count) { prayer }
             }
         )
+    }
+
+    private fun ThirdState.nextPrayer(): ThirdState {
+        val groupIndex: Int? = groups.getOrNull(currentGroupIndex)?.let { group ->
+            val prayer = group.prayers.getOrNull(currentStepIndex + 1)
+            currentGroupIndex.takeIf { prayer != null }
+        } ?: groups.getOrNull(currentGroupIndex + 1)?.run { currentGroupIndex + 1 }
+
+        val stepIndex: Int? = when {
+            groupIndex == null -> null
+            groupIndex != currentGroupIndex -> 0
+            else -> currentStepIndex + 1
+        }
+
+        return if (groupIndex != null && stepIndex != null) {
+            val lastGroupIndex = groups.lastIndex
+            val lastPrayerIndex = groups.last().prayers.lastIndex
+
+            copy(
+                currentPrayerIndex = currentPrayerIndex + 1,
+                currentGroupIndex = groupIndex,
+                currentStepIndex = stepIndex,
+                isNextEnabled = if (groupIndex == lastGroupIndex) stepIndex != lastPrayerIndex else true,
+                isPreviousEnabled = true,
+            )
+        } else {
+            copy(isNextEnabled = false)
+        }
+    }
+
+    private fun ThirdState.previousPrayer(): ThirdState {
+        val groupIndex: Int? = groups.getOrNull(currentGroupIndex)?.let { group ->
+            val prayer = group.prayers.getOrNull(currentStepIndex - 1)
+            currentGroupIndex.takeIf { prayer != null }
+        } ?: groups.getOrNull(currentGroupIndex - 1)?.run { currentGroupIndex - 1 }
+
+        val stepIndex: Int? = when {
+            groupIndex == null -> null
+            groupIndex != currentGroupIndex -> groups[groupIndex].prayers.lastIndex
+            else -> currentStepIndex - 1
+        }
+
+        return if (groupIndex != null && stepIndex != null) {
+            copy(
+                currentPrayerIndex = currentPrayerIndex - 1,
+                currentGroupIndex = groupIndex,
+                currentStepIndex = stepIndex,
+                isPreviousEnabled = groupIndex != 0 || stepIndex != 0,
+                isNextEnabled = true,
+            )
+        } else {
+            copy(isPreviousEnabled = false)
+        }
     }
 }
