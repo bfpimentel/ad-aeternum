@@ -16,15 +16,9 @@ internal object ThirdListReducer {
                     )
                 }
 
-                state.copy(
-                    thirds = thirds,
-                    isLoading = false,
-                    hasError = false,
-                )
+                state.copy(thirds = thirds, isLoading = false)
             }
-            is ThirdListActions.SetHasError -> {
-                state.copy(hasError = true)
-            }
+            is ThirdListActions.SetHasError -> state.copy(hasError = true)
             else -> state
         }
     }

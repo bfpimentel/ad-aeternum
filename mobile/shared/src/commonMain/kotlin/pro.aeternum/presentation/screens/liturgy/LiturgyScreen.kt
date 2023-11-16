@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.components.AdAeternumAppBar
+import pro.aeternum.presentation.components.AdAeternumErrorScreen
 import pro.aeternum.presentation.components.AdAeternumProgressIndicator
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.screens.liturgy.state.LiturgyActions
@@ -40,13 +41,23 @@ internal object LiturgyScreen : Destination.NavBarScreen {
 
         LaunchedEffect(true) { store.dispatch(LiturgyActions.Load) }
 
-        LiturgyScreenContent(currentState = currentState)
+        LiturgyScreenContent(
+            currentState = currentState,
+            retry = { store.dispatch(LiturgyActions.Load) }
+        )
     }
 }
 
 @Composable
-private fun LiturgyScreenContent(currentState: LiturgyState) {
+private fun LiturgyScreenContent(
+    currentState: LiturgyState,
+    retry: () -> Unit,
+) {
     when {
+        currentState.hasError -> AdAeternumErrorScreen(
+            errorMessage = strings.liturgy.errorMessage,
+            retry = retry
+        )
         currentState.isLoading -> AdAeternumProgressIndicator()
         else -> LiturgyScreenLoadedContent(currentState = currentState)
     }

@@ -10,11 +10,12 @@ internal class LiturgySideEffects(
     fun get(): SideEffect<LiturgyState, LiturgyActions> = { state, action ->
         when (action) {
             is LiturgyActions.Load -> try {
-                this(LiturgyActions.SetLiturgy(text = getLiturgy().text))
+                this(LiturgyActions.SetIsLoading)
+                val liturgy = getLiturgy().text
+                this(LiturgyActions.SetLiturgy(text = liturgy))
             } catch (exception: Exception) {
-                print(exception)
+                this(LiturgyActions.SetHasError)
             }
-
             else -> Unit
         }
     }

@@ -86,7 +86,7 @@ private fun ThirdScreenContent(
 ) {
     when {
         currentState.hasError -> AdAeternumErrorScreen(
-            errorMessage = strings.thirdsList.errorText,
+            errorMessage = strings.third.errorMessage,
             retry = retry
         )
         currentState.isLoading -> AdAeternumProgressIndicator()

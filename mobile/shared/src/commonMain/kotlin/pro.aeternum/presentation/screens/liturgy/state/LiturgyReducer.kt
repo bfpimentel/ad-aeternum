@@ -6,10 +6,9 @@ internal object LiturgyReducer {
 
     operator fun invoke(): Reducer<LiturgyState, LiturgyActions> = { state, action ->
         when (action) {
-            is LiturgyActions.SetLiturgy -> state.copy(
-                isLoading = false,
-                text = action.text,
-            )
+            is LiturgyActions.SetIsLoading -> state.copy(isLoading = true, hasError = false)
+            is LiturgyActions.SetLiturgy -> state.copy(isLoading = false, text = action.text)
+            is LiturgyActions.SetHasError -> state.copy(hasError = true)
             else -> state
         }
     }
