@@ -20,90 +20,93 @@ internal fun AdAeternumTheme(content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun createLiberationFontFamily(
+private fun createButlerFontFamily(
     fontFactory: FontFactory = component.platformModule.fontFactory,
 ): FontFamily = FontFamily(
     fontFactory.createFont(
-        name = "liberation_serif",
-        res = "liberation_serif_regular",
+        name = "butler",
+        res = "butler_ultra_light",
+        weight = FontWeight.ExtraLight,
+        style = FontStyle.Normal,
+    ),
+    fontFactory.createFont(
+        name = "butler",
+        res = "butler_light",
+        weight = FontWeight.Light,
+        style = FontStyle.Normal,
+    ),
+    fontFactory.createFont(
+        name = "butler",
+        res = "butler_regular",
         weight = FontWeight.Normal,
         style = FontStyle.Normal,
     ),
     fontFactory.createFont(
-        name = "liberation_serif",
-        res = "liberation_serif_italic",
-        weight = FontWeight.Normal,
-        style = FontStyle.Italic,
-    ),
-    fontFactory.createFont(
-        name = "liberation_serif",
-        res = "liberation_serif_bold",
+        name = "butler",
+        res = "butler_bold",
         weight = FontWeight.Bold,
         style = FontStyle.Normal,
-    ),
-    fontFactory.createFont(
-        name = "liberation_serif",
-        res = "liberation_serif_bold_italic",
-        weight = FontWeight.Bold,
-        style = FontStyle.Italic,
     ),
 )
 
 @Composable
 private fun createTypography(): Typography {
-    val liberationFontFamily = createLiberationFontFamily()
+    val butlerFontFamily = createButlerFontFamily()
 
     return MaterialTheme.typography.copy(
         displayLarge = MaterialTheme.typography.displayLarge.copy(
-            fontFamily = liberationFontFamily,
+            fontFamily = butlerFontFamily,
             fontWeight = FontWeight.Bold,
         ),
         displayMedium = MaterialTheme.typography.displayMedium.copy(
-            fontFamily = liberationFontFamily,
+            fontFamily = butlerFontFamily,
             fontWeight = FontWeight.Bold,
         ),
         displaySmall = MaterialTheme.typography.displaySmall.copy(
-            fontFamily = liberationFontFamily,
+            fontFamily = butlerFontFamily,
             fontWeight = FontWeight.Bold,
         ),
         headlineLarge = MaterialTheme.typography.headlineLarge.copy(
-            fontFamily = liberationFontFamily,
+            fontFamily = butlerFontFamily,
             fontWeight = FontWeight.Bold,
         ),
         headlineMedium = MaterialTheme.typography.headlineMedium.copy(
-            fontFamily = liberationFontFamily,
+            fontFamily = butlerFontFamily,
             fontWeight = FontWeight.Bold,
         ),
         headlineSmall = MaterialTheme.typography.headlineSmall.copy(
-            fontFamily = liberationFontFamily,
+            fontFamily = butlerFontFamily,
             fontWeight = FontWeight.Bold,
         ),
         titleLarge = MaterialTheme.typography.titleLarge.copy(
-            fontFamily = liberationFontFamily,
-            fontStyle = FontStyle.Italic,
+            fontFamily = butlerFontFamily,
+            fontStyle = FontStyle.Normal,
         ),
         titleMedium = MaterialTheme.typography.titleMedium.copy(
-            fontFamily = liberationFontFamily,
-            fontStyle = FontStyle.Italic,
+            fontFamily = butlerFontFamily,
+            fontStyle = FontStyle.Normal,
         ),
         titleSmall = MaterialTheme.typography.titleSmall.copy(
-            fontFamily = liberationFontFamily,
-            fontStyle = FontStyle.Italic,
+            fontFamily = butlerFontFamily,
+            fontStyle = FontStyle.Normal,
         ),
         bodyLarge = MaterialTheme.typography.bodyLarge,
         bodyMedium = MaterialTheme.typography.bodyMedium,
         bodySmall = MaterialTheme.typography.bodySmall,
         labelLarge = MaterialTheme.typography.labelLarge.copy(
-            fontFamily = liberationFontFamily,
-            fontStyle = FontStyle.Italic,
+            fontFamily = butlerFontFamily,
+            fontWeight = FontWeight.Light,
+            fontStyle = FontStyle.Normal,
         ),
         labelMedium = MaterialTheme.typography.labelMedium.copy(
-            fontFamily = liberationFontFamily,
-            fontStyle = FontStyle.Italic,
+            fontFamily = butlerFontFamily,
+            fontWeight = FontWeight.Light,
+            fontStyle = FontStyle.Normal,
         ),
         labelSmall = MaterialTheme.typography.labelSmall.copy(
-            fontFamily = liberationFontFamily,
-            fontStyle = FontStyle.Italic,
+            fontFamily = butlerFontFamily,
+            fontWeight = FontWeight.Light,
+            fontStyle = FontStyle.Normal,
         ),
     )
 }
