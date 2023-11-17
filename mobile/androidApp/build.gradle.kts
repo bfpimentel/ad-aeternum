@@ -1,3 +1,5 @@
+import pro.aeternum.AdAeternumVersions
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
@@ -27,8 +29,8 @@ android {
         applicationId = "pro.aeternum.AdAeternum"
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
-        versionCode = 2
-        versionName = "1.0.0"
+        versionName = AdAeternumVersions.versionName
+        versionCode = AdAeternumVersions.versionCode
     }
 
     compileOptions {

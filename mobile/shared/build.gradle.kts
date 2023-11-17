@@ -1,3 +1,5 @@
+import pro.aeternum.AdAeternumVersions
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
@@ -89,4 +91,20 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+}
+
+val generateIOSVersion by tasks.register("generateIOSVersion") {
+    val text = mapOf(
+        "TEAM_ID" to "pro.aeternum",
+        "BUNDLE_ID" to "AdAeternum",
+        "APP_NAME" to "AD AETERNUM",
+        "VERSION_NAME" to AdAeternumVersions.versionName,
+        "VERSION_CODE" to AdAeternumVersions.versionCode,
+    ).map { (key, value) -> "$key=$value" }.joinToString(separator = "\n")
+
+    file(path = "../iosApp/Configuration/Config.xcconfig").writeText(text)
+}
+
+val embedAndSignAppleFrameworkForXcode: Task by tasks.getting {
+    dependsOn(generateIOSVersion)
 }
