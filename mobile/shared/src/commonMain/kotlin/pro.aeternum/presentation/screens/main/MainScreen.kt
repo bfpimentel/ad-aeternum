@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import pro.aeternum.di.component
 import pro.aeternum.presentation.navigation.Destination
 import pro.aeternum.presentation.navigation.Navigator
@@ -62,6 +63,7 @@ private fun MainScreenContent(
             currentState = currentState,
             navigate = { destination -> navigate(destination) }
         )
+
         is Destination.Dialog -> Text("Dialog TBD.")
     }
 }
@@ -93,6 +95,7 @@ private fun NavBarScreen(
     }
 }
 
+@Preview
 @Composable
 private fun MainNavBar(
     currentState: MainState,

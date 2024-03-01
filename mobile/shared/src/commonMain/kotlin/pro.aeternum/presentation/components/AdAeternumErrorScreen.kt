@@ -1,5 +1,7 @@
 package pro.aeternum.presentation.components
 
+import ad_aeternum.shared.generated.resources.Res
+import ad_aeternum.shared.generated.resources.aa_logo_light
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,7 +37,7 @@ internal fun AdAeternumErrorScreen(
         Image(
             modifier = Modifier.fillMaxWidth(0.5f),
             contentScale = ContentScale.FillHeight,
-            painter = painterResource("drawable/aa_logo_light.xml"),
+            painter = painterResource(Res.drawable.aa_logo_light),
             contentDescription = null,
         )
 

@@ -1,7 +1,7 @@
 package pro.aeternum
 
 object AdAeternumVersions {
-    const val versionName = "1.0.1"
+    const val versionName = "1.1.0"
     val versionCode: Int get() = versionName.toVersionCode()
 
     private fun String.toVersionCode(): Int = split(".").takeIf { it.size == 3 }?.let { versionArray ->
