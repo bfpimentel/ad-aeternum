@@ -1,5 +1,7 @@
 package pro.aeternum.presentation.components
 
+import ad_aeternum.shared.generated.resources.Res
+import ad_aeternum.shared.generated.resources.arrow_left
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,7 +39,7 @@ internal fun AdAeternumAppBar(
                     modifier = Modifier
                         .clickable { onNavigationIconClick() }
                         .padding(all = 16.dp),
-                    painter = painterResource("drawable/arrow_left.xml"),
+                    painter = painterResource(Res.drawable.arrow_left),
                     contentDescription = null,
                 )
             }

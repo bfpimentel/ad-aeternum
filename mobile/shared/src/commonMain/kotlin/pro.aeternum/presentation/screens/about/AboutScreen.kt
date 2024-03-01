@@ -1,5 +1,7 @@
 package pro.aeternum.presentation.screens.about
 
+import ad_aeternum.shared.generated.resources.Res
+import ad_aeternum.shared.generated.resources.aa_logo_light
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -24,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import pro.aeternum.di.component
 import pro.aeternum.di.strings
 import pro.aeternum.presentation.navigation.Destination
@@ -61,7 +64,7 @@ private fun AboutScreenContent() {
     ) {
         Image(
             modifier = Modifier.fillMaxWidth(0.8f),
-            painter = painterResource("drawable/aa_logo_light.xml"),
+            painter = painterResource(Res.drawable.aa_logo_light),
             contentScale = ContentScale.FillHeight,
             contentDescription = null,
         )
@@ -94,6 +97,7 @@ private fun AboutScreenContent() {
     }
 }
 
+@Preview
 @Composable
 private fun Section(
     title: String,

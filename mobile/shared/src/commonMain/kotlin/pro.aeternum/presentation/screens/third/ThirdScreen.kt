@@ -1,5 +1,8 @@
 package pro.aeternum.presentation.screens.third
 
+import ad_aeternum.shared.generated.resources.Res
+import ad_aeternum.shared.generated.resources.arrow_left
+import ad_aeternum.shared.generated.resources.arrow_right
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -89,6 +92,7 @@ private fun ThirdScreenContent(
             errorMessage = strings.third.errorMessage,
             retry = retry
         )
+
         currentState.isLoading -> AdAeternumProgressIndicator()
         else -> ThirdScreenLoadedContent(
             currentState = currentState,
@@ -203,7 +207,7 @@ private fun PrayerNavigation(
             onClick = navigateToPrevious,
         ) {
             Icon(
-                painter = painterResource("drawable/arrow_left.xml"),
+                painter = painterResource(Res.drawable.arrow_left),
                 contentDescription = null,
             )
         }
@@ -225,7 +229,7 @@ private fun PrayerNavigation(
             onClick = navigateToNext,
         ) {
             Icon(
-                painter = painterResource("drawable/arrow_right.xml"),
+                painter = painterResource(Res.drawable.arrow_right),
                 contentDescription = null,
             )
         }

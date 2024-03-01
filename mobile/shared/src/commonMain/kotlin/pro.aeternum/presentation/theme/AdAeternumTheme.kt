@@ -1,13 +1,17 @@
 package pro.aeternum.presentation.theme
 
+import ad_aeternum.shared.generated.resources.*
+import ad_aeternum.shared.generated.resources.Res
+import ad_aeternum.shared.generated.resources.butler_light
+import ad_aeternum.shared.generated.resources.butler_regular
+import ad_aeternum.shared.generated.resources.butler_ultra_light
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import pro.aeternum.di.component
-import pro.aeternum.platform.FontFactory
+import org.jetbrains.compose.resources.Font
 
 @Composable
 internal fun AdAeternumTheme(content: @Composable () -> Unit) {
@@ -20,33 +24,11 @@ internal fun AdAeternumTheme(content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun createButlerFontFamily(
-    fontFactory: FontFactory = component.platformModule.fontFactory,
-): FontFamily = FontFamily(
-    fontFactory.createFont(
-        name = "butler",
-        res = "butler_ultra_light",
-        weight = FontWeight.ExtraLight,
-        style = FontStyle.Normal,
-    ),
-    fontFactory.createFont(
-        name = "butler",
-        res = "butler_light",
-        weight = FontWeight.Light,
-        style = FontStyle.Normal,
-    ),
-    fontFactory.createFont(
-        name = "butler",
-        res = "butler_regular",
-        weight = FontWeight.Normal,
-        style = FontStyle.Normal,
-    ),
-    fontFactory.createFont(
-        name = "butler",
-        res = "butler_bold",
-        weight = FontWeight.Bold,
-        style = FontStyle.Normal,
-    ),
+private fun createButlerFontFamily(): FontFamily = FontFamily(
+    Font(resource = Res.font.butler_ultra_light, weight = FontWeight.ExtraLight, style = FontStyle.Normal),
+    Font(resource = Res.font.butler_light, weight = FontWeight.Light, style = FontStyle.Normal),
+    Font(resource = Res.font.butler_regular, weight = FontWeight.Normal, style = FontStyle.Normal),
+    Font(resource = Res.font.butler_bold, weight = FontWeight.Bold, style = FontStyle.Normal),
 )
 
 @Composable

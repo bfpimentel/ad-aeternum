@@ -1,5 +1,7 @@
 package pro.aeternum.presentation.screens.thirdlist
 
+import ad_aeternum.shared.generated.resources.Res
+import ad_aeternum.shared.generated.resources.arrow_right
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,10 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -70,6 +69,7 @@ private fun ThirdsListScreenContent(
             errorMessage = strings.thirdsList.errorMessage,
             retry = retry
         )
+
         currentState.isLoading -> AdAeternumProgressIndicator()
         else -> ThirdsListLoadedScreenContent(
             currentState = currentState,
@@ -93,7 +93,7 @@ private fun ThirdsListLoadedScreenContent(
                     navigateToThird = navigateToThird,
                 )
 
-                Divider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
             }
         }
     }
@@ -138,7 +138,7 @@ private fun ThirdItem(
                     .size(24.dp)
                     .align(Alignment.CenterVertically),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
-                painter = painterResource("drawable/arrow_right.xml"),
+                painter = painterResource(Res.drawable.arrow_right),
                 contentDescription = null,
             )
         }
