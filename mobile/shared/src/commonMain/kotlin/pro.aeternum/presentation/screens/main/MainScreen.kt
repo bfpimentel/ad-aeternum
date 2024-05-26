@@ -21,7 +21,7 @@ import pro.aeternum.presentation.screens.about.AboutScreen
 import pro.aeternum.presentation.screens.liturgy.LiturgyScreen
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainState
-import pro.aeternum.presentation.screens.thirdlist.ThirdListScreen
+import pro.aeternum.presentation.screens.rosarylist.RosariesListScreen
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
@@ -102,7 +102,7 @@ private fun MainNavBar(
     navigate: (Destination) -> Unit,
 ) {
     val screens: List<Destination.NavBarScreen> = listOf(
-        ThirdListScreen,
+        RosariesListScreen,
         LiturgyScreen,
         AboutScreen,
     )

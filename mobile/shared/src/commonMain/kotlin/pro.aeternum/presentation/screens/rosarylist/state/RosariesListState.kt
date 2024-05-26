@@ -1,20 +1,20 @@
-package pro.aeternum.presentation.screens.thirdlist.state
+package pro.aeternum.presentation.screens.rosarylist.state
 
-internal data class ThirdListState(
-    val thirds: List<Third>,
+internal data class RosariesListState(
+    val rosaries: List<Rosary>,
     val isLoading: Boolean,
     val hasError: Boolean,
 ) {
 
-    data class Third(
+    data class Rosary(
         val id: String,
         val title: String,
         val subtitle: String?,
     )
 
     companion object {
-        val INITIAL = ThirdListState(
-            thirds = listOf(),
+        val INITIAL = RosariesListState(
+            rosaries = listOf(),
             isLoading = true,
             hasError = false,
         )

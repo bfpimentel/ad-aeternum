@@ -11,16 +11,16 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import pro.aeternum.data.repository.DefaultLiturgyRepository
-import pro.aeternum.data.repository.DefaultThirdsRepository
+import pro.aeternum.data.repository.DefaultRosariesRepository
 import pro.aeternum.data.source.remote.LiturgyRemoteSource
-import pro.aeternum.data.source.remote.ThirdsRemoteDataSource
+import pro.aeternum.data.source.remote.RosariesRemoteDataSource
 import pro.aeternum.domain.repository.LiturgyRepository
-import pro.aeternum.domain.repository.ThirdsRepository
+import pro.aeternum.domain.repository.RosariesRepository
 import pro.aeternum.environment.Environment
 
 internal interface DataModule {
     fun provideLiturgyRepository(): LiturgyRepository
-    fun provideThirdsRepository(): ThirdsRepository
+    fun provideRosariesRepository(): RosariesRepository
 }
 
 internal class DefaultDataModule(
@@ -31,17 +31,18 @@ internal class DefaultDataModule(
         liturgyRemoteSource = provideLiturgyRemoteSource(),
     )
 
-    override fun provideThirdsRepository(): ThirdsRepository = DefaultThirdsRepository(
-        thirdsRemoteDataSource = provideThirdsRemoteDataSource(),
+    override fun provideRosariesRepository(): RosariesRepository = DefaultRosariesRepository(
+        rosariesRemoteDataSource = provideRosariesRemoteDataSource(),
     )
 
-    private fun provideThirdsRemoteDataSource(): ThirdsRemoteDataSource = ThirdsRemoteDataSource(
-        client = provideHttpClient {
-            defaultRequest {
-                url(urlString = Environment.adAeternumApiURL)
+    private fun provideRosariesRemoteDataSource(): RosariesRemoteDataSource =
+        RosariesRemoteDataSource(
+            client = provideHttpClient {
+                defaultRequest {
+                    url(urlString = Environment.adAeternumApiURL)
+                }
             }
-        }
-    )
+        )
 
     private fun provideLiturgyRemoteSource(): LiturgyRemoteSource = LiturgyRemoteSource(
         client = provideHttpClient {

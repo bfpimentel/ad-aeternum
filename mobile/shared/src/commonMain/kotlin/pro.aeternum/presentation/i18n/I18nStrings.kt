@@ -5,8 +5,8 @@ internal interface I18nStrings {
     val error: Error
 
     val main: Main
-    val thirdsList: ThirdsList
-    val third: Third
+    val rosariesList: RosariesList
+    val rosary: Rosary
     val liturgy: Liturgy
     val about: About
 
@@ -18,12 +18,12 @@ internal interface I18nStrings {
         val title: String
     }
 
-    interface ThirdsList {
+    interface RosariesList {
         val title: String
         val errorMessage: String
     }
 
-    interface Third {
+    interface Rosary {
         val title: String
         val errorMessage: String
     }
@@ -57,9 +57,9 @@ internal class BrazilianPortugueseStrings : I18nStrings {
         override val title: String = "AD AETERNUM"
     }
 
-    override val thirdsList = object : I18nStrings.ThirdsList {
-        override val title: String = "Terços"
-        override val errorMessage: String = "Não foi possível buscar a lista de terços."
+    override val rosariesList = object : I18nStrings.RosariesList {
+        override val title: String = "Rosários"
+        override val errorMessage: String = "Não foi possível buscar a lista de rosários."
     }
 
     override val liturgy = object : I18nStrings.Liturgy {
@@ -68,8 +68,8 @@ internal class BrazilianPortugueseStrings : I18nStrings {
         override val errorMessage: String = "Não foi possível buscar a liturgia."
     }
 
-    override val third = object : I18nStrings.Third {
-        override val title: String = "Terço"
+    override val rosary = object : I18nStrings.Rosary {
+        override val title: String = "Rosário"
         override val errorMessage: String = "Não foi possível buscar este terço."
     }
 

@@ -1,6 +1,6 @@
-package pro.aeternum.presentation.screens.third.state
+package pro.aeternum.presentation.screens.rosary.state
 
-internal data class ThirdState(
+internal data class RosaryState(
     val title: String,
     val subtitle: String?,
     val prayers: List<Prayer>,
@@ -26,7 +26,7 @@ internal data class ThirdState(
     )
 
     companion object {
-        val INITIAL = ThirdState(
+        val INITIAL = RosaryState(
             title = "",
             subtitle = null,
             prayers = listOf(),

@@ -1,4 +1,4 @@
-package pro.aeternum.presentation.screens.thirdlist
+package pro.aeternum.presentation.screens.rosarylist
 
 import ad_aeternum.shared.generated.resources.Res
 import ad_aeternum.shared.generated.resources.arrow_right
@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,69 +31,68 @@ import pro.aeternum.presentation.components.AdAeternumAppBar
 import pro.aeternum.presentation.components.AdAeternumErrorScreen
 import pro.aeternum.presentation.components.AdAeternumProgressIndicator
 import pro.aeternum.presentation.navigation.Destination
-import pro.aeternum.presentation.screens.thirdlist.state.ThirdListActions
-import pro.aeternum.presentation.screens.thirdlist.state.ThirdListState
+import pro.aeternum.presentation.screens.rosarylist.state.RosariesListAction
+import pro.aeternum.presentation.screens.rosarylist.state.RosariesListState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
 
-internal object ThirdListScreen : Destination.NavBarScreen {
+internal object RosariesListScreen : Destination.NavBarScreen {
 
-    override val id: String = "third_list"
-    override val title: String by lazy { strings.thirdsList.title }
+    override val id: String = "rosaries_list"
+    override val title: String by lazy { strings.rosariesList.title }
 
     @Composable
     override fun Content() {
         val coroutineScope = rememberCoroutineScope()
-        val store: Store<ThirdListState, ThirdListActions> = transientComposableStore {
-            component.presentationModule.provideThirdsListStore(
+        val store: Store<RosariesListState, RosariesListAction> = transientComposableStore {
+            component.presentationModule.provideRosariesListStore(
                 coroutineScope = coroutineScope
             )
         }
         val currentState by store.state.collectAsState()
 
-        LaunchedEffect(true) { store.dispatch(ThirdListActions.Load) }
+        LaunchedEffect(true) { store.dispatch(RosariesListAction.Load) }
 
-        ThirdsListScreenContent(
+        RosariesListScreenContent(
             currentState = currentState,
-            navigateToThird = { id -> store.dispatch(ThirdListActions.SelectThird(id = id)) },
-            retry = { store.dispatch(ThirdListActions.Load) },
+            navigateToRosary = { id -> store.dispatch(RosariesListAction.SelectRosary(id = id)) },
+            retry = { store.dispatch(RosariesListAction.Load) },
         )
     }
 }
 
 @Composable
-private fun ThirdsListScreenContent(
-    currentState: ThirdListState,
-    navigateToThird: (String) -> Unit,
+private fun RosariesListScreenContent(
+    currentState: RosariesListState,
+    navigateToRosary: (String) -> Unit,
     retry: () -> Unit,
 ) {
     when {
         currentState.hasError -> AdAeternumErrorScreen(
-            errorMessage = strings.thirdsList.errorMessage,
+            errorMessage = strings.rosariesList.errorMessage,
             retry = retry
         )
-
         currentState.isLoading -> AdAeternumProgressIndicator()
-        else -> ThirdsListLoadedScreenContent(
+        else -> RosariesListLoadedScreenContent(
             currentState = currentState,
-            navigateToThird = navigateToThird,
+            navigateToRosary = navigateToRosary,
         )
     }
 }
 
 @Composable
-private fun ThirdsListLoadedScreenContent(
-    currentState: ThirdListState,
-    navigateToThird: (String) -> Unit,
+private fun RosariesListLoadedScreenContent(
+    currentState: RosariesListState,
+    navigateToRosary: (String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         AdAeternumAppBar()
 
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            items(currentState.thirds) { item ->
-                ThirdItem(
+            items(currentState.rosaries) { item ->
+                RosaryItem(
                     item = item,
-                    navigateToThird = navigateToThird,
+                    navigateToRosary = navigateToRosary,
                 )
 
                 HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
@@ -100,16 +102,16 @@ private fun ThirdsListLoadedScreenContent(
 }
 
 @Composable
-private fun ThirdItem(
-    item: ThirdListState.Third,
-    navigateToThird: (String) -> Unit,
+private fun RosaryItem(
+    item: RosariesListState.Rosary,
+    navigateToRosary: (String) -> Unit,
 ) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp),
         color = MaterialTheme.colorScheme.onPrimary,
-        onClick = { navigateToThird(item.id) },
+        onClick = { navigateToRosary(item.id) },
     ) {
         Row(
             modifier = Modifier

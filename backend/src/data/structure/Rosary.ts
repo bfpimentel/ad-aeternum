@@ -1,4 +1,4 @@
-export interface Third {
+export interface Rosary {
     id: string
     title: string
     subtitle: string

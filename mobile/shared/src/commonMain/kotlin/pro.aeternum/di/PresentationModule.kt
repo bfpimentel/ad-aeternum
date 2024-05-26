@@ -15,14 +15,14 @@ import pro.aeternum.presentation.screens.liturgy.state.LiturgyState
 import pro.aeternum.presentation.screens.main.state.MainActions
 import pro.aeternum.presentation.screens.main.state.MainReducer
 import pro.aeternum.presentation.screens.main.state.MainState
-import pro.aeternum.presentation.screens.third.state.ThirdActions
-import pro.aeternum.presentation.screens.third.state.ThirdReducer
-import pro.aeternum.presentation.screens.third.state.ThirdSideEffects
-import pro.aeternum.presentation.screens.third.state.ThirdState
-import pro.aeternum.presentation.screens.thirdlist.state.ThirdListActions
-import pro.aeternum.presentation.screens.thirdlist.state.ThirdListReducer
-import pro.aeternum.presentation.screens.thirdlist.state.ThirdListSideEffects
-import pro.aeternum.presentation.screens.thirdlist.state.ThirdListState
+import pro.aeternum.presentation.screens.rosary.state.RosaryActions
+import pro.aeternum.presentation.screens.rosary.state.RosaryReducer
+import pro.aeternum.presentation.screens.rosary.state.RosarySideEffects
+import pro.aeternum.presentation.screens.rosary.state.RosaryState
+import pro.aeternum.presentation.screens.rosarylist.state.RosariesListAction
+import pro.aeternum.presentation.screens.rosarylist.state.RosariesListReducer
+import pro.aeternum.presentation.screens.rosarylist.state.RosariesListSideEffects
+import pro.aeternum.presentation.screens.rosarylist.state.RosariesListState
 import pro.aeternum.presentation.state.Store
 
 internal val strings: I18nStrings by lazy {
@@ -40,14 +40,14 @@ internal interface PresentationModule {
         restoredState: MainState?,
     ): Store<MainState, MainActions>
 
-    fun provideThirdsListStore(
+    fun provideRosariesListStore(
         coroutineScope: CoroutineScope,
-    ): Store<ThirdListState, ThirdListActions>
+    ): Store<RosariesListState, RosariesListAction>
 
-    fun provideThirdStore(
+    fun provideRosaryStore(
         coroutineScope: CoroutineScope,
-        thirdId: String,
-    ): Store<ThirdState, ThirdActions>
+        rosaryId: String,
+    ): Store<RosaryState, RosaryActions>
 
     fun provideLiturgyStore(
         coroutineScope: CoroutineScope,
@@ -82,31 +82,31 @@ internal class DefaultPresentationModule(
         sideEffects = listOf(),
     )
 
-    override fun provideThirdsListStore(
+    override fun provideRosariesListStore(
         coroutineScope: CoroutineScope,
-    ): Store<ThirdListState, ThirdListActions> = Store(
+    ): Store<RosariesListState, RosariesListAction> = Store(
         coroutineScope = coroutineScope,
-        initialState = ThirdListState.INITIAL,
-        reducer = ThirdListReducer(),
+        initialState = RosariesListState.INITIAL,
+        reducer = RosariesListReducer(),
         sideEffects = listOf(
-            ThirdListSideEffects(
-                getThirdsList = domainModule.provideGetThirdsListUseCase(),
+            RosariesListSideEffects(
+                getRosaries = domainModule.provideGetRosariesUseCase(),
                 navigator = navigator,
             ).get()
         )
     )
 
-    override fun provideThirdStore(
+    override fun provideRosaryStore(
         coroutineScope: CoroutineScope,
-        thirdId: String,
-    ): Store<ThirdState, ThirdActions> = Store(
+        rosaryId: String,
+    ): Store<RosaryState, RosaryActions> = Store(
         coroutineScope = coroutineScope,
-        initialState = ThirdState.INITIAL,
-        reducer = ThirdReducer(),
+        initialState = RosaryState.INITIAL,
+        reducer = RosaryReducer(),
         sideEffects = listOf(
-            ThirdSideEffects(
-                thirdId = thirdId,
-                getThird = domainModule.provideGetThirdUseCase(),
+            RosarySideEffects(
+                rosaryId = rosaryId,
+                getSingleRosary = domainModule.provideGetSingleRosaryUseCase(),
                 navigator = navigator,
             ).get(),
         )

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Prayer } from "@/data/structure/Prayer"
-import { Third } from '@/data/structure/Third'
+import { Rosary } from '@/data/structure/Rosary'
 
 class PrayerDataSource {
     private prayers: Prayer[] = []
@@ -22,14 +22,14 @@ class PrayerDataSource {
         return this.prayers
     }
 
-    getPrayersForThird(third: Third): Prayer[] {
+    getPrayersForRosary(rosary: Rosary): Prayer[] {
         if (this.prayers.length == 0) {
             this.prayers = this.getPrayers()
         }
 
         var prayerTypes: string[] = []
     
-        third.groups.flatMap(({steps}) => steps).forEach(({type}) => {
+        rosary.groups.flatMap(({steps}) => steps).forEach(({type}) => {
             if (prayerTypes.includes(type)) return
             prayerTypes = prayerTypes.concat(type)
         })

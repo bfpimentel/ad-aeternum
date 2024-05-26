@@ -1,39 +1,39 @@
-package pro.aeternum.presentation.screens.third.state
+package pro.aeternum.presentation.screens.rosary.state
 
-import pro.aeternum.domain.model.Third
+import pro.aeternum.domain.model.Rosary
 import pro.aeternum.presentation.state.Reducer
 
-internal object ThirdReducer {
+internal object RosaryReducer {
 
-    operator fun invoke(): Reducer<ThirdState, ThirdActions> = { state, action ->
+    operator fun invoke(): Reducer<RosaryState, RosaryActions> = { state, action ->
         when (action) {
-            is ThirdActions.SetIsLoading -> state.copy(isLoading = true, hasError = false)
-            is ThirdActions.SetThird -> action.third.let { third ->
-                val groups = third.mapGroups()
+            is RosaryActions.SetIsLoading -> state.copy(isLoading = true, hasError = false)
+            is RosaryActions.SetRosary -> action.rosary.let { rosary ->
+                val groups = rosary.mapGroups()
 
                 state.copy(
-                    title = third.title,
-                    subtitle = third.subtitle.ifEmpty { null },
+                    title = rosary.title,
+                    subtitle = rosary.subtitle.ifEmpty { null },
                     groups = groups,
-                    prayers = groups.flatMap(ThirdState.Group::prayers),
+                    prayers = groups.flatMap(RosaryState.Group::prayers),
                     isLoading = false,
                 )
             }
-            is ThirdActions.Swipe -> if (action.index > state.currentPrayerIndex) {
+            is RosaryActions.Swipe -> if (action.index > state.currentPrayerIndex) {
                 state.nextPrayer()
             } else {
                 state.previousPrayer()
             }
-            is ThirdActions.SetHasError -> state.copy(hasError = true)
+            is RosaryActions.SetHasError -> state.copy(hasError = true)
             else -> state
         }
     }
 
-    private fun Third.mapGroups(): List<ThirdState.Group> = groups.map { group ->
-        ThirdState.Group(
+    private fun Rosary.mapGroups(): List<RosaryState.Group> = groups.map { group ->
+        RosaryState.Group(
             prayers = group.steps.flatMap { step ->
                 val prayer = prayers.first { prayer -> prayer.type == step.type }.let { prayer ->
-                    ThirdState.Prayer(
+                    RosaryState.Prayer(
                         title = prayer.title,
                         subtitle = prayer.subtitle.ifEmpty { null },
                         paragraphs = prayer.paragraphs
@@ -44,7 +44,7 @@ internal object ThirdReducer {
         )
     }
 
-    private fun ThirdState.nextPrayer(): ThirdState {
+    private fun RosaryState.nextPrayer(): RosaryState {
         val groupIndex: Int? = groups.getOrNull(currentGroupIndex)?.let { group ->
             val prayer = group.prayers.getOrNull(currentStepIndex + 1)
             currentGroupIndex.takeIf { prayer != null }
@@ -72,7 +72,7 @@ internal object ThirdReducer {
         }
     }
 
-    private fun ThirdState.previousPrayer(): ThirdState {
+    private fun RosaryState.previousPrayer(): RosaryState {
         val groupIndex: Int? = groups.getOrNull(currentGroupIndex)?.let { group ->
             val prayer = group.prayers.getOrNull(currentStepIndex - 1)
             currentGroupIndex.takeIf { prayer != null }

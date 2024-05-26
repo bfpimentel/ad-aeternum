@@ -1,7 +1,7 @@
 package pro.aeternum.presentation.screens.main.state
 
 import pro.aeternum.presentation.navigation.Destination
-import pro.aeternum.presentation.screens.thirdlist.ThirdListScreen
+import pro.aeternum.presentation.screens.rosarylist.RosariesListScreen
 
 internal data class MainState(
     val destination: Destination,
@@ -10,8 +10,8 @@ internal data class MainState(
 
     companion object {
         val INITIAL = MainState(
-            destination = ThirdListScreen,
-            destinationStack = listOf(ThirdListScreen),
+            destination = RosariesListScreen,
+            destinationStack = listOf(RosariesListScreen),
         )
     }
 }

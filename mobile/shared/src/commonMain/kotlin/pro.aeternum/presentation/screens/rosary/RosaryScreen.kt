@@ -1,4 +1,4 @@
-package pro.aeternum.presentation.screens.third
+package pro.aeternum.presentation.screens.rosary
 
 import ad_aeternum.shared.generated.resources.Res
 import ad_aeternum.shared.generated.resources.arrow_left
@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import kotlin.properties.Delegates
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import pro.aeternum.di.component
@@ -42,59 +41,60 @@ import pro.aeternum.presentation.components.AdAeternumAppBar
 import pro.aeternum.presentation.components.AdAeternumErrorScreen
 import pro.aeternum.presentation.components.AdAeternumProgressIndicator
 import pro.aeternum.presentation.navigation.Destination
-import pro.aeternum.presentation.screens.third.state.ThirdActions
-import pro.aeternum.presentation.screens.third.state.ThirdState
+import pro.aeternum.presentation.screens.rosary.state.RosaryActions
+import pro.aeternum.presentation.screens.rosary.state.RosaryState
 import pro.aeternum.presentation.state.Store
 import pro.aeternum.presentation.state.transientComposableStore
+import kotlin.properties.Delegates
 
-internal object ThirdScreen : Destination.FullScreen {
+internal object RosaryScreen : Destination.FullScreen {
 
-    override val id: String = "third"
-    override val title: String by lazy { strings.third.title }
+    override val id: String = "rosary"
+    override val title: String by lazy { strings.rosary.title }
 
-    private var thirdId: String by Delegates.notNull()
+    private var rosaryId: String by Delegates.notNull()
 
-    fun create(thirdId: String): ThirdScreen = ThirdScreen.apply {
-        this.thirdId = thirdId
+    fun create(rosaryId: String): RosaryScreen = RosaryScreen.apply {
+        this.rosaryId = rosaryId
     }
 
     @Composable
     override fun Content() {
         val coroutineScope = rememberCoroutineScope()
-        val store: Store<ThirdState, ThirdActions> = transientComposableStore {
-            component.presentationModule.provideThirdStore(
+        val store: Store<RosaryState, RosaryActions> = transientComposableStore {
+            component.presentationModule.provideRosaryStore(
                 coroutineScope = coroutineScope,
-                thirdId = thirdId,
+                rosaryId = rosaryId,
             )
         }
         val currentState by store.state.collectAsState()
 
-        LaunchedEffect(true) { store.dispatch(ThirdActions.Load) }
+        LaunchedEffect(true) { store.dispatch(RosaryActions.Load) }
 
-        ThirdScreenContent(
+        RosaryScreenContent(
             currentState = currentState,
-            swipe = { index -> store.dispatch(ThirdActions.Swipe(index)) },
-            navigateBack = { store.dispatch(ThirdActions.NavigateBack) },
-            retry = { store.dispatch(ThirdActions.Load) }
+            swipe = { index -> store.dispatch(RosaryActions.Swipe(index)) },
+            navigateBack = { store.dispatch(RosaryActions.NavigateBack) },
+            retry = { store.dispatch(RosaryActions.Load) }
         )
     }
 }
 
 @Composable
-private fun ThirdScreenContent(
-    currentState: ThirdState,
+private fun RosaryScreenContent(
+    currentState: RosaryState,
     swipe: (Int) -> Unit,
     navigateBack: () -> Unit,
     retry: () -> Unit,
 ) {
     when {
         currentState.hasError -> AdAeternumErrorScreen(
-            errorMessage = strings.third.errorMessage,
+            errorMessage = strings.rosary.errorMessage,
             retry = retry
         )
 
         currentState.isLoading -> AdAeternumProgressIndicator()
-        else -> ThirdScreenLoadedContent(
+        else -> RosaryScreenLoadedContent(
             currentState = currentState,
             swipe = swipe,
             navigateBack = navigateBack,
@@ -104,8 +104,8 @@ private fun ThirdScreenContent(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ThirdScreenLoadedContent(
-    currentState: ThirdState,
+private fun RosaryScreenLoadedContent(
+    currentState: RosaryState,
     navigateBack: () -> Unit,
     swipe: (Int) -> Unit,
 ) {
@@ -161,7 +161,7 @@ private fun ThirdScreenLoadedContent(
 }
 
 @Composable
-private fun Prayer(modifier: Modifier = Modifier, currentPrayer: ThirdState.Prayer) {
+private fun Prayer(modifier: Modifier = Modifier, currentPrayer: RosaryState.Prayer) {
     Column(modifier = modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
         Text(
             modifier = Modifier.padding(top = 16.dp),
@@ -191,7 +191,7 @@ private fun Prayer(modifier: Modifier = Modifier, currentPrayer: ThirdState.Pray
 
 @Composable
 private fun PrayerNavigation(
-    currentState: ThirdState,
+    currentState: RosaryState,
     navigateToNext: () -> Unit,
     navigateToPrevious: () -> Unit,
 ) {
@@ -214,12 +214,18 @@ private fun PrayerNavigation(
 
         Column(modifier = Modifier.weight(1f)) {
             val groups = currentState.groups
-            CountProgressIndicator(count = groups.size, selectedIndex = currentState.currentGroupIndex)
+            CountProgressIndicator(
+                count = groups.size,
+                selectedIndex = currentState.currentGroupIndex
+            )
 
             Spacer(modifier = Modifier.padding(4.dp))
 
             val steps = groups[currentState.currentGroupIndex].prayers
-            CountProgressIndicator(count = steps.size, selectedIndex = currentState.currentStepIndex)
+            CountProgressIndicator(
+                count = steps.size,
+                selectedIndex = currentState.currentStepIndex
+            )
         }
 
         FilledIconButton(

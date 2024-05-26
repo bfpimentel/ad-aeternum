@@ -1,4 +1,4 @@
-export type ThirdResponse = {
+export type RosaryResponse = {
     groups: [Group]
     prayers: [Prayer]
 }

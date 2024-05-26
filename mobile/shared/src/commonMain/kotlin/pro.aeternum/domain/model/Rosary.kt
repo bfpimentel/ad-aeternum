@@ -1,8 +1,8 @@
 package pro.aeternum.domain.model
 
-import pro.aeternum.data.model.ThirdResponse
+import pro.aeternum.data.model.RosaryResponse
 
-internal data class Third(
+internal data class Rosary(
     val id: String,
     val title: String,
     val subtitle: String,
@@ -26,7 +26,7 @@ internal data class Prayer(
     val paragraphs: List<String>,
 )
 
-internal fun ThirdResponse.toDomainModel(): Third = Third(
+internal fun RosaryResponse.toDomainModel(): Rosary = Rosary(
     id = this.id,
     title = this.title,
     subtitle = this.subtitle,
