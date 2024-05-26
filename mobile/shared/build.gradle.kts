@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -73,7 +74,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "pro.aeternum"
+    namespace = "pro.aeternum.common"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")

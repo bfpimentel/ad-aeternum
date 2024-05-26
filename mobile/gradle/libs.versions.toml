@@ -1,11 +1,11 @@
 [versions]
-kotlin = "1.9.20"
-gradle = "8.2.0-rc03"
-compose = "1.6.0"
+kotlin = "2.0.0"
+gradle = "8.4.1"
+compose = "1.6.10"
 
 androidx-appcompat = "1.6.1"
-androidx-ktx = "1.12.0"
-androidx-activity-compose = "1.8.0"
+androidx-ktx = "1.13.1"
+androidx-activity-compose = "1.9.0"
 
 ktor = "2.3.5"
 
@@ -17,6 +17,7 @@ android-application = { id = "com.android.application", version.ref = "gradle" }
 android-library = { id = "com.android.library", version.ref = "gradle" }
 
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -24,7 +25,6 @@ androidx-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-ktx"
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 androidx-compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 androidx-compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-
 
 ktor-client = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
