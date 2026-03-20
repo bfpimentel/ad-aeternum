@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Feather } from "@expo/vector-icons";
 import { Screen } from "@/components/Screen";
 import { RosaryStackParamList } from "@/navigation/types";
-import { useRosarySession } from "@/state/RosarySessionContext";
+import { useRosarySession } from "@/state/useRosarySession";
 import { colors, radius, spacing, typography } from "@/theme/tokens";
 
 export function LibraryScreen() {

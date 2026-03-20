@@ -5,17 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { Screen } from "@/components/Screen";
 import { RootTabParamList } from "@/navigation/types";
-import { useRosarySession } from "@/state/RosarySessionContext";
+import { useRosarySession } from "@/state/useRosarySession";
 import { colors, radius, spacing, typography } from "@/theme/tokens";
-import { getRosaryIdForWeekday } from "@/utils/rosary";
 
 export function HomeScreen() {
   const navigation = useNavigation<BottomTabNavigationProp<RootTabParamList, "Home">>();
-  const { allRosaries, openRosary, selectedRosaryId, progress } = useRosarySession();
+  const { allRosaries, recommendedRosary, openRosary, selectedRosaryId, progress } =
+    useRosarySession();
 
-  const todayRosaryId = getRosaryIdForWeekday();
-  const todayRosary =
-    allRosaries.find((item) => item.id === todayRosaryId) ?? allRosaries[0];
+  const todayRosary = recommendedRosary;
   const effectiveProgress = selectedRosaryId === todayRosary.id ? progress : 0;
 
   const dayLabel = useMemo(() => {

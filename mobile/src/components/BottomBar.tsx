@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors, typography } from "@/theme/tokens";
 
 const tabMeta = {
-  Home: { label: "REZAR", icon: "home" as const },
+  Home: { label: "INÍCIO", icon: "home" as const },
   Rosary: { label: "TERÇO", icon: "book-open" as const },
   Settings: { label: "AJUSTES", icon: "settings" as const },
 };
@@ -70,7 +70,7 @@ export function BottomBar({ state, descriptors, navigation }: BottomTabBarProps)
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: "transparent",
+    backgroundColor: colors.background,
     paddingHorizontal: 21,
     paddingTop: 12,
   },
